@@ -1,0 +1,5548 @@
+[
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Academic English 2",
+        "professors": [
+            "Neyaskulova Rano"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Academic English 2",
+        "professors": [
+            "Neyaskulova Rano"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Physics 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02",
+            "CIE-25-03"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "5",
+        "subject": "Physics 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02",
+            "CIE-25-03"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Academic English 2",
+        "professors": [
+            "Neyaskulova Rano"
+        ],
+        "groups": [
+            "CIE-25-03",
+            "CIE-25-04"
+        ],
+        "rooms": [
+            "A608"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Academic English 2",
+        "professors": [
+            "Neyaskulova Rano"
+        ],
+        "groups": [
+            "CIE-25-03",
+            "CIE-25-04"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Saydasheva Angelina"
+        ],
+        "groups": [
+            "CIE-25-03",
+            "CIE-25-04"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Academic English 2",
+        "professors": [
+            "Neyaskulova Rano"
+        ],
+        "groups": [
+            "CIE-25-05",
+            "CIE-25-06"
+        ],
+        "rooms": [
+            "A608"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "2",
+        "subject": "Academic English 2",
+        "professors": [
+            "Neyaskulova Rano"
+        ],
+        "groups": [
+            "CIE-25-05",
+            "CIE-25-06"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Academic English 2",
+        "professors": [
+            "Neyaskulova Rano"
+        ],
+        "groups": [
+            "CIE-25-07",
+            "CIE-25-08"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "5",
+        "subject": "Academic English 2",
+        "professors": [
+            "Neyaskulova Rano"
+        ],
+        "groups": [
+            "CIE-25-07",
+            "CIE-25-08"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "5",
+        "subject": "Academic English 2",
+        "professors": [
+            "Khidayatova Gulkhumor"
+        ],
+        "groups": [
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Academic English 2",
+        "professors": [
+            "Khidayatova Gulkhumor"
+        ],
+        "groups": [
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "11",
+        "subject": "Academic English 2",
+        "professors": [
+            "Khidayatova Gulkhumor"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Academic English 2",
+        "professors": [
+            "Khidayatova Gulkhumor"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "ICE-24-01"
+        ],
+        "rooms": [
+            "A609"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "8",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "ICE-24-01"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "ICE-24-02",
+            "ICE-24-03"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "ICE-24-02",
+            "ICE-24-03"
+        ],
+        "rooms": [
+            "A407"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "ICE-24-04",
+            "ICE-24-05"
+        ],
+        "rooms": [
+            "A609"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "ICE-24-04",
+            "ICE-24-05"
+        ],
+        "rooms": [
+            "A407"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-06"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-06"
+        ],
+        "rooms": [
+            "A614"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10"
+        ],
+        "rooms": [
+            "A407"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "11",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-11",
+            "CSE-24-12"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-11",
+            "CSE-24-12"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-13",
+            "CSE-24-14"
+        ],
+        "rooms": [
+            "A612"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-13",
+            "CSE-24-14"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "A407"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Saydasheva Angelina"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "10",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Saydasheva Angelina"
+        ],
+        "groups": [
+            "CIE-25-05",
+            "CIE-25-06"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Saydasheva Angelina"
+        ],
+        "groups": [
+            "CIE-25-07",
+            "CIE-25-08"
+        ],
+        "rooms": [
+            "A614"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Turgunova Shakhnoza"
+        ],
+        "groups": [
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "A407"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "9",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Turgunova Shakhnoza"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "11",
+        "subject": "Business English 2",
+        "professors": [
+            "Turgunova Shakhnoza"
+        ],
+        "groups": [
+            "BUS-25-01"
+        ],
+        "rooms": [
+            "A708"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Business English 2",
+        "professors": [
+            "Turgunova Shakhnoza"
+        ],
+        "groups": [
+            "BUS-25-01"
+        ],
+        "rooms": [
+            "A708"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "BUS-25-02"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "BUS-25-02"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "LOG-25-01",
+            "LOG-25-02"
+        ],
+        "rooms": [
+            "A308"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "LOG-25-01",
+            "LOG-25-02"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "10",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "LOG-25-03",
+            "LOG-25-04"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "LOG-25-03",
+            "LOG-25-04"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Business English 4",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "BUS-24-01"
+        ],
+        "rooms": [
+            "B207"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "9",
+        "subject": "Business English 4",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "BUS-24-01"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Business English 4",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "BUS-24-02",
+            "BUS-24-03",
+            "BUS-24-04",
+            "BUS-24-05"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "6",
+        "subject": "Business English 4",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "BUS-24-02",
+            "BUS-24-03",
+            "BUS-24-04",
+            "BUS-24-05"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Business English 4",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "LOG-24-01",
+            "LOG-24-02",
+            "LOG-24-03"
+        ],
+        "rooms": [
+            "B207"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Business English 4",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "LOG-24-01",
+            "LOG-24-02",
+            "LOG-24-03"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "2",
+        "subject": "Business English 4",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Business English 4",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "B207"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Business English Readings & Writings 2",
+        "professors": [
+            "Ahmedhanov Ahad"
+        ],
+        "groups": [
+            "BUS-23-01"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Business English Readings & Writings 2",
+        "professors": [
+            "Ahmedhanov Ahad"
+        ],
+        "groups": [
+            "BUS-23-01"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Business English Readings & Writings 2",
+        "professors": [
+            "Ahmedhanov Ahad"
+        ],
+        "groups": [
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Business English Readings & Writings 2",
+        "professors": [
+            "Ahmedhanov Ahad"
+        ],
+        "groups": [
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Business English Readings & Writings 2",
+        "professors": [
+            "Ahmedhanov Ahad"
+        ],
+        "groups": [
+            "LOG-23-01"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Business English Readings & Writings 2",
+        "professors": [
+            "Ahmedhanov Ahad"
+        ],
+        "groups": [
+            "LOG-23-01"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Business English Readings & Writings 2",
+        "professors": [
+            "Ahmedhanov Ahad"
+        ],
+        "groups": [
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Business English Readings & Writings 2",
+        "professors": [
+            "Ahmedhanov Ahad"
+        ],
+        "groups": [
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Physics 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-04",
+            "CIE-25-05",
+            "CIE-25-06",
+            "CIE-25-07"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "8",
+        "subject": "Physics 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-04",
+            "CIE-25-05",
+            "CIE-25-06",
+            "CIE-25-07"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Physics 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-08",
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Physics 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-08",
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "15",
+        "subject": "Physics 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12",
+            "CIE-25-13"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Physics 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12",
+            "CIE-25-13"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "15",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-01"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "14",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-02",
+            "CIE-25-03"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "11",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-04",
+            "CIE-25-05"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-06",
+            "CIE-25-07"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "3",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Atamurotov Farrukh"
+        ],
+        "groups": [
+            "CIE-25-08",
+            "CIE-25-09"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "6",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Sariqulov Furqat"
+        ],
+        "groups": [
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "2",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-11"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "13",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-12",
+            "CIE-25-13"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "11",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02",
+            "CIE-25-03"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "8",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02",
+            "CIE-25-03"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-04",
+            "CIE-25-05",
+            "CIE-25-06",
+            "CIE-25-07"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "7",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-04",
+            "CIE-25-05",
+            "CIE-25-06",
+            "CIE-25-07"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-08",
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-08",
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12",
+            "CIE-25-13"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12",
+            "CIE-25-13"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Calculus 2",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02",
+            "CIE-25-03",
+            "CIE-25-04",
+            "CIE-25-05"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Calculus 2",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02",
+            "CIE-25-03",
+            "CIE-25-04",
+            "CIE-25-05"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Calculus 2",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "CIE-25-06",
+            "CIE-25-07",
+            "CIE-25-08",
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "8",
+        "subject": "Calculus 2",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "CIE-25-06",
+            "CIE-25-07",
+            "CIE-25-08",
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Calculus 2",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12",
+            "CIE-25-13",
+            "CIE-25-14",
+            "CIE-25-15"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Calculus 2",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12",
+            "CIE-25-13",
+            "CIE-25-14",
+            "CIE-25-15"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "10",
+        "subject": "Basic Korean 2-Rus",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "ICE-24-01"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "3",
+        "subject": "Basic Korean 2-Rus",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Basic Korean 2-Rus",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10"
+        ],
+        "rooms": [
+            "A708"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "3",
+        "subject": "Basic Korean 2-Rus",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "CSE-24-13",
+            "CSE-24-14"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "8",
+        "subject": "Basic Korean 2-Rus",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Basic Korean 2-Rus",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "BUS-24-01"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Basic Korean 2-Rus",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "BUS-24-05",
+            "LOG-24-01"
+        ],
+        "rooms": [
+            "B207"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "5",
+        "subject": "Basic Korean 2-Rus",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "B207"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Basic Korean 2-Uzb",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "ICE-24-05",
+            "CSE-24-04"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "7",
+        "subject": "Basic Korean 2-Uzb",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "CSE-24-06"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "11",
+        "subject": "Basic Korean 2-Uzb",
+        "professors": [
+            "Makhamedova Shirin"
+        ],
+        "groups": [
+            "BUS-24-03",
+            "BUS-24-04",
+            "LOG-24-03"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "11",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "ICE-24-01",
+            "ICE-24-02",
+            "ICE-24-03"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "ICE-24-01",
+            "ICE-24-02",
+            "ICE-24-03"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "ICE-24-04",
+            "ICE-24-05",
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02",
+            "CSE-24-03"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "7",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "ICE-24-04",
+            "ICE-24-05",
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02",
+            "CSE-24-03"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "CSE-24-04",
+            "CSE-24-05",
+            "CSE-24-06"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "CSE-24-04",
+            "CSE-24-05",
+            "CSE-24-06"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10",
+            "CSE-24-11",
+            "CSE-24-12"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "14",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10",
+            "CSE-24-11",
+            "CSE-24-12"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "CSE-24-13",
+            "CSE-24-14",
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "System Programming",
+        "professors": [
+            "Yusupov Jaloliddin"
+        ],
+        "groups": [
+            "CSE-24-13",
+            "CSE-24-14",
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Digital Logic Circuit",
+        "professors": [
+            "Khodjayev Jasurbek"
+        ],
+        "groups": [
+            "ICE-24-01",
+            "ICE-24-02",
+            "ICE-24-03",
+            "ICE-24-04",
+            "ICE-24-05"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Digital Logic Circuit",
+        "professors": [
+            "Khodjayev Jasurbek"
+        ],
+        "groups": [
+            "ICE-24-01",
+            "ICE-24-02",
+            "ICE-24-03",
+            "ICE-24-04",
+            "ICE-24-05"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Digital Logic Circuit",
+        "professors": [
+            "Khodjayev Jasurbek"
+        ],
+        "groups": [
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02",
+            "CSE-24-03",
+            "CSE-24-04",
+            "CSE-24-05"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "11",
+        "subject": "Digital Logic Circuit",
+        "professors": [
+            "Khodjayev Jasurbek"
+        ],
+        "groups": [
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02",
+            "CSE-24-03",
+            "CSE-24-04",
+            "CSE-24-05"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Digital Logic Circuit",
+        "professors": [
+            "Khodjayev Jasurbek"
+        ],
+        "groups": [
+            "CSE-24-06",
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10",
+            "CSE-24-11"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Digital Logic Circuit",
+        "professors": [
+            "Khodjayev Jasurbek"
+        ],
+        "groups": [
+            "CSE-24-06",
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10",
+            "CSE-24-11"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Digital Logic Circuit",
+        "professors": [
+            "Khodjayev Jasurbek"
+        ],
+        "groups": [
+            "CSE-24-12",
+            "CSE-24-13",
+            "CSE-24-14",
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "10",
+        "subject": "Digital Logic Circuit",
+        "professors": [
+            "Khodjayev Jasurbek"
+        ],
+        "groups": [
+            "CSE-24-12",
+            "CSE-24-13",
+            "CSE-24-14",
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "ICE-24-01",
+            "ICE-24-02",
+            "ICE-24-03"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "ICE-24-01",
+            "ICE-24-02",
+            "ICE-24-03"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "ICE-24-04",
+            "ICE-24-05",
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02",
+            "CSE-24-03"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "ICE-24-04",
+            "ICE-24-05",
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02",
+            "CSE-24-03"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "CSE-24-04",
+            "CSE-24-05",
+            "CSE-24-06"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "CSE-24-04",
+            "CSE-24-05",
+            "CSE-24-06"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10",
+            "CSE-24-11",
+            "CSE-24-12"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10",
+            "CSE-24-11",
+            "CSE-24-12"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "CSE-24-13",
+            "CSE-24-14",
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Discrete Mathematics",
+        "professors": [
+            "Askarova Ayjamal"
+        ],
+        "groups": [
+            "CSE-24-13",
+            "CSE-24-14",
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Computer Architecture",
+        "professors": [
+            "Lee June Sup"
+        ],
+        "groups": [
+            "ICE-24-01",
+            "ICE-24-02",
+            "ICE-24-03",
+            "ICE-24-04",
+            "ICE-24-05"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "14",
+        "subject": "Computer Architecture",
+        "professors": [
+            "Lee June Sup"
+        ],
+        "groups": [
+            "ICE-24-01",
+            "ICE-24-02",
+            "ICE-24-03",
+            "ICE-24-04",
+            "ICE-24-05"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "10",
+        "subject": "Computer Architecture",
+        "professors": [
+            "Lee June Sup"
+        ],
+        "groups": [
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02",
+            "CSE-24-03",
+            "CSE-24-04",
+            "CSE-24-05"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "14",
+        "subject": "Computer Architecture",
+        "professors": [
+            "Lee June Sup"
+        ],
+        "groups": [
+            "ICE-24-06",
+            "CSE-24-01",
+            "CSE-24-02",
+            "CSE-24-03",
+            "CSE-24-04",
+            "CSE-24-05"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Computer Architecture",
+        "professors": [
+            "Lee June Sup"
+        ],
+        "groups": [
+            "CSE-24-06",
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10",
+            "CSE-24-11"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "11",
+        "subject": "Computer Architecture",
+        "professors": [
+            "Lee June Sup"
+        ],
+        "groups": [
+            "CSE-24-06",
+            "CSE-24-07",
+            "CSE-24-08",
+            "CSE-24-09",
+            "CSE-24-10",
+            "CSE-24-11"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Computer Architecture",
+        "professors": [
+            "Lee June Sup"
+        ],
+        "groups": [
+            "CSE-24-12",
+            "CSE-24-13",
+            "CSE-24-14",
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "13",
+        "subject": "Computer Architecture",
+        "professors": [
+            "Lee June Sup"
+        ],
+        "groups": [
+            "CSE-24-12",
+            "CSE-24-13",
+            "CSE-24-14",
+            "CSE-24-15",
+            "CSE-24-16"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Introduction to Business Administration",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04",
+            "CSE-23-05"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Introduction to Business Administration",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04",
+            "CSE-23-05"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Introduction to Business Administration",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Introduction to Business Administration",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Introduction to Business Administration",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Introduction to Business Administration",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "10",
+        "subject": "Introduction to Business Administration",
+        "professors": [
+            "Turakulov Valijon"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02",
+            "ICE-23-03",
+            "ICE-23-04"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "13",
+        "subject": "Introduction to Business Administration",
+        "professors": [
+            "Turakulov Valijon"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02",
+            "ICE-23-03",
+            "ICE-23-04"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "10",
+        "subject": "Unix Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04",
+            "CSE-23-05"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Unix Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04",
+            "CSE-23-05"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Unix Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "13",
+        "subject": "Unix Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Unix Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Unix Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Database Application & Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02",
+            "ICE-23-03"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Database Application & Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02",
+            "ICE-23-03"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Database Application & Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "ICE-23-04",
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "10",
+        "subject": "Database Application & Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "ICE-23-04",
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Database Application & Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "CSE-23-05",
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "13",
+        "subject": "Database Application & Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "CSE-23-05",
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Database Application & Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Database Application & Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Signals and Systems",
+        "professors": [
+            "An Chongkoo"
+        ],
+        "groups": [
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Signals and Systems",
+        "professors": [
+            "An Chongkoo"
+        ],
+        "groups": [
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Signals and Systems",
+        "professors": [
+            "An Chongkoo"
+        ],
+        "groups": [
+            "CSE-23-04",
+            "CSE-23-05",
+            "CSE-23-06",
+            "CSE-23-07"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Signals and Systems",
+        "professors": [
+            "An Chongkoo"
+        ],
+        "groups": [
+            "CSE-23-04",
+            "CSE-23-05",
+            "CSE-23-06",
+            "CSE-23-07"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Signals and Systems",
+        "professors": [
+            "An Chongkoo"
+        ],
+        "groups": [
+            "CSE-23-08",
+            "CSE-23-09",
+            "CSE-23-10"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Signals and Systems",
+        "professors": [
+            "An Chongkoo"
+        ],
+        "groups": [
+            "CSE-23-08",
+            "CSE-23-09",
+            "CSE-23-10"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Computer Networks",
+        "professors": [
+            "Seth Ashish"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02",
+            "ICE-23-03"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Computer Networks",
+        "professors": [
+            "Seth Ashish"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02",
+            "ICE-23-03"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "7",
+        "subject": "Computer Networks",
+        "professors": [
+            "Seth Ashish"
+        ],
+        "groups": [
+            "ICE-23-04",
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Computer Networks",
+        "professors": [
+            "Seth Ashish"
+        ],
+        "groups": [
+            "ICE-23-04",
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Probability and Statistics",
+        "professors": [
+            "Ditta Allah"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02",
+            "ICE-23-03"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "Probability and Statistics",
+        "professors": [
+            "Ditta Allah"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02",
+            "ICE-23-03"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Probability and Statistics",
+        "professors": [
+            "Ditta Allah"
+        ],
+        "groups": [
+            "ICE-23-04",
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "Probability and Statistics",
+        "professors": [
+            "Ditta Allah"
+        ],
+        "groups": [
+            "ICE-23-04",
+            "CSE-23-01",
+            "CSE-23-02",
+            "CSE-23-03",
+            "CSE-23-04"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Capstone Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "ICE-22-01"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Capstone Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "ICE-22-01"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Capstone Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Capstone Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "13",
+        "subject": "Capstone Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CSE-22-02"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Capstone Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CSE-22-02"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Capstone Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Capstone Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "Internet of Things",
+        "professors": [
+            "Minhaz Uddin Ahmed"
+        ],
+        "groups": [
+            "ICE-22-01",
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Internet of Things",
+        "professors": [
+            "Minhaz Uddin Ahmed"
+        ],
+        "groups": [
+            "ICE-22-01",
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "5",
+        "subject": "Internet of Things",
+        "professors": [
+            "Minhaz Uddin Ahmed"
+        ],
+        "groups": [
+            "CSE-22-02",
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Internet of Things",
+        "professors": [
+            "Minhaz Uddin Ahmed"
+        ],
+        "groups": [
+            "CSE-22-02",
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Mobile Programming",
+        "professors": [
+            "Hong Jeong"
+        ],
+        "groups": [
+            "ICE-22-01"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Mobile Programming",
+        "professors": [
+            "Hong Jeong"
+        ],
+        "groups": [
+            "ICE-22-01"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Mobile Programming",
+        "professors": [
+            "Hong Jeong"
+        ],
+        "groups": [
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Mobile Programming",
+        "professors": [
+            "Hong Jeong"
+        ],
+        "groups": [
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Mobile Programming",
+        "professors": [
+            "Hong Jeong"
+        ],
+        "groups": [
+            "CSE-22-02"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Mobile Programming",
+        "professors": [
+            "Hong Jeong"
+        ],
+        "groups": [
+            "CSE-22-02"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Mobile Programming",
+        "professors": [
+            "Hong Jeong"
+        ],
+        "groups": [
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "13",
+        "subject": "Mobile Programming",
+        "professors": [
+            "Hong Jeong"
+        ],
+        "groups": [
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Computer Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "ICE-22-01"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Computer Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "ICE-22-01"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Computer Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Computer Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Computer Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "CSE-22-02"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Computer Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "CSE-22-02"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Computer Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Computer Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "Multimedia Application",
+        "professors": [
+            "Minhaz Uddin Ahmed"
+        ],
+        "groups": [
+            "ICE-22-01",
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Multimedia Application",
+        "professors": [
+            "Minhaz Uddin Ahmed"
+        ],
+        "groups": [
+            "ICE-22-01",
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Multimedia Application",
+        "professors": [
+            "Minhaz Uddin Ahmed"
+        ],
+        "groups": [
+            "CSE-22-02",
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Multimedia Application",
+        "professors": [
+            "Minhaz Uddin Ahmed"
+        ],
+        "groups": [
+            "CSE-22-02",
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Statistics 2",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Statistics 2",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Statistics 2",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "BUS-25-03",
+            "BUS-25-04"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Statistics 2",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "BUS-25-03",
+            "BUS-25-04"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Organizational Behavior",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02",
+            "BUS-25-03",
+            "BUS-25-04"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Organizational Behavior",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02",
+            "BUS-25-03",
+            "BUS-25-04"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Organizational Behavior",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03",
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Organizational Behavior",
+        "professors": [
+            "Khodieva Gulmira"
+        ],
+        "groups": [
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03",
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "14",
+        "subject": "Logistics Management",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02",
+            "BUS-25-03",
+            "BUS-25-04",
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03",
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "9",
+        "subject": "Logistics Management",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02",
+            "BUS-25-03",
+            "BUS-25-04",
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03",
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Management Information System",
+        "professors": [
+            "Tarawade Abhijit"
+        ],
+        "groups": [
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03",
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "12",
+        "subject": "Management Information System",
+        "professors": [
+            "Tarawade Abhijit"
+        ],
+        "groups": [
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03",
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Computer Programming",
+        "professors": [
+            "Tarawade Abhijit"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02",
+            "BUS-25-03"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Computer Programming",
+        "professors": [
+            "Tarawade Abhijit"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02",
+            "BUS-25-03"
+        ],
+        "rooms": [
+            "B102 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Computer Programming",
+        "professors": [
+            "Tarawade Abhijit"
+        ],
+        "groups": [
+            "BUS-25-04",
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03",
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "15",
+        "subject": "Computer Programming",
+        "professors": [
+            "Tarawade Abhijit"
+        ],
+        "groups": [
+            "BUS-25-04",
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03",
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "B102 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Managerial Accounting",
+        "professors": [
+            "Lee Keun Jung"
+        ],
+        "groups": [
+            "BUS-24-01",
+            "BUS-24-02",
+            "BUS-24-03"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "12",
+        "subject": "Managerial Accounting",
+        "professors": [
+            "Lee Keun Jung"
+        ],
+        "groups": [
+            "BUS-24-01",
+            "BUS-24-02",
+            "BUS-24-03"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "3",
+        "subject": "Managerial Accounting",
+        "professors": [
+            "Lee Keun Jung"
+        ],
+        "groups": [
+            "LOG-24-03",
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "A608"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Managerial Accounting",
+        "professors": [
+            "Lee Keun Jung"
+        ],
+        "groups": [
+            "LOG-24-03",
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "13",
+        "subject": "E-commerce",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "BUS-24-01",
+            "BUS-24-02",
+            "BUS-24-03",
+            "BUS-24-04",
+            "BUS-24-05"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "13",
+        "subject": "E-commerce",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "BUS-24-01",
+            "BUS-24-02",
+            "BUS-24-03",
+            "BUS-24-04",
+            "BUS-24-05"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "6",
+        "subject": "E-commerce",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "LOG-24-01",
+            "LOG-24-02",
+            "LOG-24-03",
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "E-commerce",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "LOG-24-01",
+            "LOG-24-02",
+            "LOG-24-03",
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Consumer Behavior",
+        "professors": [
+            "Tukhtaev Bakhtier"
+        ],
+        "groups": [
+            "BUS-24-01",
+            "BUS-24-02",
+            "BUS-24-03",
+            "BUS-24-04",
+            "BUS-24-05"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Consumer Behavior",
+        "professors": [
+            "Tukhtaev Bakhtier"
+        ],
+        "groups": [
+            "BUS-24-01",
+            "BUS-24-02",
+            "BUS-24-03",
+            "BUS-24-04",
+            "BUS-24-05"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Freight Transportation",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "LOG-24-01",
+            "LOG-24-02",
+            "LOG-24-03",
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Freight Transportation",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "LOG-24-01",
+            "LOG-24-02",
+            "LOG-24-03",
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "13",
+        "subject": "Managerial Accounting",
+        "professors": [
+            "Lee Keun Jung"
+        ],
+        "groups": [
+            "BUS-24-04",
+            "BUS-24-05",
+            "LOG-24-01",
+            "LOG-24-02"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "9",
+        "subject": "Managerial Accounting",
+        "professors": [
+            "Lee Keun Jung"
+        ],
+        "groups": [
+            "BUS-24-04",
+            "BUS-24-05",
+            "LOG-24-01",
+            "LOG-24-02"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "9",
+        "subject": "International Logistics",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "LOG-24-01",
+            "LOG-24-02",
+            "LOG-24-03",
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "International Logistics",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "LOG-24-01",
+            "LOG-24-02",
+            "LOG-24-03",
+            "LOG-24-04"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Transportation Economics",
+        "professors": [
+            "Turakulov Valijon"
+        ],
+        "groups": [
+            "LOG-23-01",
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Transportation Economics",
+        "professors": [
+            "Turakulov Valijon"
+        ],
+        "groups": [
+            "LOG-23-01",
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Warehousing and Material Handling",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "LOG-23-01",
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Warehousing and Material Handling",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "LOG-23-01",
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "13",
+        "subject": "Business Strategy",
+        "professors": [
+            "Kim Heungsang"
+        ],
+        "groups": [
+            "BUS-23-01",
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "10",
+        "subject": "Business Strategy",
+        "professors": [
+            "Kim Heungsang"
+        ],
+        "groups": [
+            "BUS-23-01",
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Business Strategy",
+        "professors": [
+            "Kim Heungsang"
+        ],
+        "groups": [
+            "LOG-23-01",
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "13",
+        "subject": "Business Strategy",
+        "professors": [
+            "Kim Heungsang"
+        ],
+        "groups": [
+            "LOG-23-01",
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "10",
+        "subject": "Project Management",
+        "professors": [
+            "Tukhtaev Bakhtier"
+        ],
+        "groups": [
+            "LOG-23-01",
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "13",
+        "subject": "Project Management",
+        "professors": [
+            "Tukhtaev Bakhtier"
+        ],
+        "groups": [
+            "LOG-23-01",
+            "LOG-23-02"
+        ],
+        "rooms": [
+            "A608"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "13",
+        "subject": "Product and Brand Management",
+        "professors": [
+            "Tukhtaev Bakhtier"
+        ],
+        "groups": [
+            "BUS-23-01",
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Product and Brand Management",
+        "professors": [
+            "Tukhtaev Bakhtier"
+        ],
+        "groups": [
+            "BUS-23-01",
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "A608"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "5",
+        "subject": "Investments",
+        "professors": [
+            "Lee Keun Jung"
+        ],
+        "groups": [
+            "BUS-23-01",
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Investments",
+        "professors": [
+            "Lee Keun Jung"
+        ],
+        "groups": [
+            "BUS-23-01",
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "Statistics 2",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Statistics 2",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "LOG-25-01",
+            "LOG-25-02",
+            "LOG-25-03"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Statistics 2",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "Statistics 2",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "LOG-25-04",
+            "LOG-25-05"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "15",
+        "subject": "Functional & Business English",
+        "professors": [
+            "Khidayatova Gulkhumor"
+        ],
+        "groups": [
+            "BM-25-01"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "12",
+        "subject": "Business Communication",
+        "professors": [
+            "Khankeldiev Khasan"
+        ],
+        "groups": [
+            "BM-25-01"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "15",
+        "subject": "Business Communication",
+        "professors": [
+            "Khankeldiev Khasan"
+        ],
+        "groups": [
+            "BM-25-01"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "12",
+        "subject": "Introduction to Business Computing",
+        "professors": [
+            "Nurullaev A'zam"
+        ],
+        "groups": [
+            "BM-25-01"
+        ],
+        "rooms": [
+            "B102 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "12",
+        "subject": "Introduction to Business Computing",
+        "professors": [
+            "Nurullaev A'zam"
+        ],
+        "groups": [
+            "BM-25-01"
+        ],
+        "rooms": [
+            "B102 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Introduction to Research",
+        "professors": [
+            "Muratov Bobir"
+        ],
+        "groups": [
+            "BM-25-01"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "15",
+        "subject": "Introduction to Research",
+        "professors": [
+            "Muratov Bobir"
+        ],
+        "groups": [
+            "BM-25-01"
+        ],
+        "rooms": [
+            "B207"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "12",
+        "subject": "Cloud Computing and AI",
+        "professors": [
+            "Asranov Mansur"
+        ],
+        "groups": [
+            "IT-25-01"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "12",
+        "subject": "Cloud Computing and AI",
+        "professors": [
+            "Asranov Mansur"
+        ],
+        "groups": [
+            "IT-25-02"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "15",
+        "subject": "Networking and Cyber Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "IT-25-01"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "15",
+        "subject": "Networking and Cyber Security",
+        "professors": [
+            "Asranov Mansur"
+        ],
+        "groups": [
+            "IT-25-02"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "15",
+        "subject": "Mathematics in IT",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "IT-25-01"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "12",
+        "subject": "Mathematics in IT",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "IT-25-02"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Mathematics in IT",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "IT-25-01",
+            "IT-25-02"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "12",
+        "subject": "Cloud Computing and AI",
+        "professors": [
+            "Asranov Mansur"
+        ],
+        "groups": [
+            "IT-25-01"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "15",
+        "subject": "Cloud Computing and AI",
+        "professors": [
+            "Asranov Mansur"
+        ],
+        "groups": [
+            "IT-25-02"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "15",
+        "subject": "Networking and Cyber Security",
+        "professors": [
+            "Asranov Mansur"
+        ],
+        "groups": [
+            "IT-25-02"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "15",
+        "subject": "Networking and Cyber Security",
+        "professors": [
+            "Seth Kirti"
+        ],
+        "groups": [
+            "IT-25-01"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "12",
+        "subject": "Functional English",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "IT-25-01"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "15",
+        "subject": "Functional English",
+        "professors": [
+            "Kenesbaev Sultan"
+        ],
+        "groups": [
+            "IT-25-02"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "18",
+        "subject": "Initiating Successful Projects Using Big Data Analytics",
+        "professors": [
+            "Lee June Sup"
+        ],
+        "groups": [
+            "EMBA-25"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "20",
+        "subject": "Artificial Intelligence in Digital Transformation",
+        "professors": [
+            "Hong Jeong"
+        ],
+        "groups": [
+            "MBA-25"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "8",
+        "subject": "Academic English 2",
+        "professors": [
+            "Khidayatova Gulkhumor"
+        ],
+        "groups": [
+            "CIE-25-13",
+            "CIE-25-14"
+        ],
+        "rooms": [
+            "B208"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "5",
+        "subject": "Academic English 2",
+        "professors": [
+            "Khidayatova Gulkhumor"
+        ],
+        "groups": [
+            "CIE-25-13",
+            "CIE-25-14"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "12",
+        "subject": "Academic English 2",
+        "professors": [
+            "Khidayatova Gulkhumor"
+        ],
+        "groups": [
+            "CIE-25-15",
+            "CIE-25-16"
+        ],
+        "rooms": [
+            "B207"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "13",
+        "subject": "Academic English 2",
+        "professors": [
+            "Khidayatova Gulkhumor"
+        ],
+        "groups": [
+            "CIE-25-15",
+            "CIE-25-16"
+        ],
+        "rooms": [
+            "B203"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Academic English 2",
+        "professors": [
+            "Saydasheva Angelina"
+        ],
+        "groups": [
+            "CIE-25-17",
+            "CIE-25-18"
+        ],
+        "rooms": [
+            "A407"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "6",
+        "subject": "Academic English 2",
+        "professors": [
+            "Saydasheva Angelina"
+        ],
+        "groups": [
+            "CIE-25-17",
+            "CIE-25-18"
+        ],
+        "rooms": [
+            "A614"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "Academic English 2",
+        "professors": [
+            "Saydasheva Angelina"
+        ],
+        "groups": [
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Academic English 2",
+        "professors": [
+            "Saydasheva Angelina"
+        ],
+        "groups": [
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "A708"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Turgunova Shakhnoza"
+        ],
+        "groups": [
+            "CIE-25-13",
+            "CIE-25-14"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "5",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Turgunova Shakhnoza"
+        ],
+        "groups": [
+            "CIE-25-15",
+            "CIE-25-16"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Turgunova Shakhnoza"
+        ],
+        "groups": [
+            "CIE-25-17",
+            "CIE-25-18"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "5",
+        "subject": "Technical Writing & Discussion",
+        "professors": [
+            "Turgunova Shakhnoza"
+        ],
+        "groups": [
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "A705"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Physics 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-14",
+            "CIE-25-15",
+            "CIE-25-16",
+            "CIE-25-17"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Physics 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-14",
+            "CIE-25-15",
+            "CIE-25-16",
+            "CIE-25-17"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "14",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-16",
+            "CIE-25-17"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Physics 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-18",
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Physics 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-18",
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Sariqulov Furqat"
+        ],
+        "groups": [
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-14",
+            "CIE-25-15"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "10",
+        "subject": "Physics Experiment 2",
+        "professors": [
+            "Tashkhodjayev Rustam"
+        ],
+        "groups": [
+            "CIE-25-18",
+            "CIE-25-19"
+        ],
+        "rooms": [
+            "A502/A504"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-14",
+            "CIE-25-15",
+            "CIE-25-16",
+            "CIE-25-17"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "10",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-14",
+            "CIE-25-15",
+            "CIE-25-16",
+            "CIE-25-17"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-18",
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "1",
+        "subject": "Object Oriented Programming 2",
+        "professors": [
+            "Suvanov Sharof"
+        ],
+        "groups": [
+            "CIE-25-18",
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "B103 PC Lab"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "11",
+        "subject": "Creative Engineering Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02",
+            "CIE-25-03",
+            "CIE-25-04",
+            "CIE-25-05"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Creative Engineering Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "CIE-25-01",
+            "CIE-25-02",
+            "CIE-25-03",
+            "CIE-25-04",
+            "CIE-25-05"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "Creative Engineering Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "CIE-25-06",
+            "CIE-25-07",
+            "CIE-25-08",
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "11",
+        "subject": "Creative Engineering Design",
+        "professors": [
+            "Abdullaev Sarvar"
+        ],
+        "groups": [
+            "CIE-25-06",
+            "CIE-25-07",
+            "CIE-25-08",
+            "CIE-25-09",
+            "CIE-25-10"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Creative Engineering Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12",
+            "CIE-25-13",
+            "CIE-25-14",
+            "CIE-25-15"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "13",
+        "subject": "Creative Engineering Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CIE-25-11",
+            "CIE-25-12",
+            "CIE-25-13",
+            "CIE-25-14",
+            "CIE-25-15"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "10",
+        "subject": "Creative Engineering Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CIE-25-16",
+            "CIE-25-17",
+            "CIE-25-18",
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Creative Engineering Design",
+        "professors": [
+            "Eraliev Oybek"
+        ],
+        "groups": [
+            "CIE-25-16",
+            "CIE-25-17",
+            "CIE-25-18",
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Calculus 2",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "CIE-25-16",
+            "CIE-25-17",
+            "CIE-25-18",
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "B209"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Calculus 2",
+        "professors": [
+            "Safarov Utkir"
+        ],
+        "groups": [
+            "CIE-25-16",
+            "CIE-25-17",
+            "CIE-25-18",
+            "CIE-25-19",
+            "CIE-25-20"
+        ],
+        "rooms": [
+            "B201"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "CSE-24-03",
+            "CSE-24-04"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "8",
+        "subject": "Academic English 4",
+        "professors": [
+            "Isamukhamedova Ozoda"
+        ],
+        "groups": [
+            "CSE-24-03",
+            "CSE-24-04"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-05"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "8",
+        "subject": "Academic English 4",
+        "professors": [
+            "Musurmanova Parvina"
+        ],
+        "groups": [
+            "CSE-24-05"
+        ],
+        "rooms": [
+            "A707"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "4",
+        "subject": "Signals and Systems",
+        "professors": [
+            "An Chongkoo"
+        ],
+        "groups": [
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "1",
+        "subject": "Signals and Systems",
+        "professors": [
+            "An Chongkoo"
+        ],
+        "groups": [
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "1",
+        "subject": "Probability and Statistics",
+        "professors": [
+            "Ditta Allah"
+        ],
+        "groups": [
+            "CSE-23-05",
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "16",
+        "subject": "Probability and Statistics",
+        "professors": [
+            "Ditta Allah"
+        ],
+        "groups": [
+            "CSE-23-05",
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "13",
+        "subject": "Probability and Statistics",
+        "professors": [
+            "Ditta Allah"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Probability and Statistics",
+        "professors": [
+            "Ditta Allah"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "9",
+        "subject": "Computer Networks",
+        "professors": [
+            "Seth Ashish"
+        ],
+        "groups": [
+            "CSE-23-05",
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "10",
+        "subject": "Computer Networks",
+        "professors": [
+            "Seth Ashish"
+        ],
+        "groups": [
+            "CSE-23-05",
+            "CSE-23-06",
+            "CSE-23-07",
+            "CSE-23-08",
+            "CSE-23-09"
+        ],
+        "rooms": [
+            "A203"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "1",
+        "subject": "Computer Networks",
+        "professors": [
+            "Seth Ashish"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Computer Networks",
+        "professors": [
+            "Seth Ashish"
+        ],
+        "groups": [
+            "CSE-23-10",
+            "CSE-23-11",
+            "CSE-23-12",
+            "CSE-23-13"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "7",
+        "subject": "Introduction to Economics",
+        "professors": [
+            "Turakulov Valijon"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02"
+        ],
+        "rooms": [
+            "A608"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "10",
+        "subject": "Introduction to Economics",
+        "professors": [
+            "Turakulov Valijon"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Introduction to Economics",
+        "professors": [
+            "Turakulov Valijon"
+        ],
+        "groups": [
+            "ICE-23-03",
+            "ICE-23-04"
+        ],
+        "rooms": [
+            "A608"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "13",
+        "subject": "Introduction to Economics",
+        "professors": [
+            "Turakulov Valijon"
+        ],
+        "groups": [
+            "ICE-23-03",
+            "ICE-23-04"
+        ],
+        "rooms": [
+            "A606"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "13",
+        "subject": "Internet Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02"
+        ],
+        "rooms": [
+            "B202"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "7",
+        "subject": "Internet Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "ICE-23-01",
+            "ICE-23-02"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "7",
+        "subject": "Internet Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "ICE-23-03",
+            "ICE-23-04"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "16",
+        "subject": "Internet Programming",
+        "professors": [
+            "Dragunov Andrei"
+        ],
+        "groups": [
+            "ICE-23-03",
+            "ICE-23-04"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "12",
+        "subject": "Engineering Ethics",
+        "professors": [
+            "Muratov Bobir"
+        ],
+        "groups": [
+            "ICE-22-01",
+            "CSE-22-01"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "13",
+        "subject": "Engineering Ethics",
+        "professors": [
+            "Muratov Bobir"
+        ],
+        "groups": [
+            "CSE-22-02",
+            "CSE-22-03"
+        ],
+        "rooms": [
+            "B101 Conf"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "4",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "BUS-25-03",
+            "BUS-25-04"
+        ],
+        "rooms": [
+            "A706"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "10",
+        "subject": "Business English 2",
+        "professors": [
+            "Ubaydullaeva Umida"
+        ],
+        "groups": [
+            "BUS-25-03",
+            "BUS-25-04"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "00100",
+        "period": "4",
+        "subject": "Management Information System",
+        "professors": [
+            "Tarawade Abhijit"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02",
+            "BUS-25-03",
+            "BUS-25-04"
+        ],
+        "rooms": [
+            "A513"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "4",
+        "subject": "Management Information System",
+        "professors": [
+            "Tarawade Abhijit"
+        ],
+        "groups": [
+            "BUS-25-01",
+            "BUS-25-02",
+            "BUS-25-03",
+            "BUS-25-04"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "1",
+        "subject": "Operations Management",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "BUS-24-01",
+            "BUS-24-02",
+            "BUS-24-03",
+            "BUS-24-04",
+            "BUS-24-05"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "4",
+        "subject": "Operations Management",
+        "professors": [
+            "Lee Dongwon"
+        ],
+        "groups": [
+            "BUS-24-01",
+            "BUS-24-02",
+            "BUS-24-03",
+            "BUS-24-04",
+            "BUS-24-05"
+        ],
+        "rooms": [
+            "A202"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "10",
+        "subject": "Entrepreneurship",
+        "professors": [
+            "Tukhtaev Bakhtier"
+        ],
+        "groups": [
+            "BUS-23-01",
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00001",
+        "period": "13",
+        "subject": "Entrepreneurship",
+        "professors": [
+            "Tukhtaev Bakhtier"
+        ],
+        "groups": [
+            "BUS-23-01",
+            "BUS-23-02"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "15",
+        "subject": "Capstone Project",
+        "professors": [
+            "Nurullaev A'zam"
+        ],
+        "groups": [
+            "IT-25-01"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "12",
+        "subject": "Capstone Project",
+        "professors": [
+            "Nurullaev A'zam"
+        ],
+        "groups": [
+            "IT-25-02"
+        ],
+        "rooms": [
+            "A605"
+        ]
+    },
+    {
+        "day_mask": "10000",
+        "period": "15",
+        "subject": "Capstone Project",
+        "professors": [
+            "Muratov Bobir"
+        ],
+        "groups": [
+            "BM-25-01"
+        ],
+        "rooms": [
+            "B210"
+        ]
+    },
+    {
+        "day_mask": "01000",
+        "period": "18",
+        "subject": "Cloud Computing and Business Application",
+        "professors": [
+            "Seth Ashish"
+        ],
+        "groups": [
+            "EMBA-25"
+        ],
+        "rooms": [
+            "A501"
+        ]
+    },
+    {
+        "day_mask": "00010",
+        "period": "20",
+        "subject": "E-Commerce in Digital Economy",
+        "professors": [
+            "Lee Seulki"
+        ],
+        "groups": [
+            "MBA-25"
+        ],
+        "rooms": [
+            "A607"
+        ]
+    }
+]

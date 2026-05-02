@@ -1,0 +1,6 @@
+{"timestamp":"2026-05-02T15:07:29.966260Z","level":"info","event":"DAG bundles loaded: dags-folder","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":209}
+{"timestamp":"2026-05-02T15:07:29.967788Z","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/iut_data_extractor.py","logger":"airflow.dag_processing.dagbag.BundleDagBag","filename":"dagbag.py","lineno":469}
+{"timestamp":"2026-05-02T15:07:29.979217Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"UserWarning","filename":"/opt/airflow/dags/iut_data_extractor.py","lineno":2,"logger":"py.warnings"}
+{"timestamp":"2026-05-02T15:07:30.873072Z","level":"info","event":"OCCUPIED ROOMS: No existing file found — creating new file.","logger":"task.stdout"}
+{"timestamp":"2026-05-02T15:07:30.878257Z","level":"info","event":"OCCUPIED ROOMS: Saved 350 entries to /opt/airflow/parsed_data/occupied_rooms.json","logger":"task.stdout"}
+{"timestamp":"2026-05-02T15:07:30.880618Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":229}

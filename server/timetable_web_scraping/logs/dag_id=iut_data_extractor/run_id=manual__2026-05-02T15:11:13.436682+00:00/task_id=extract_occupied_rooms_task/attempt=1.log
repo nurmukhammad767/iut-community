@@ -1,0 +1,5 @@
+{"timestamp":"2026-05-02T15:11:14.578075Z","level":"info","event":"DAG bundles loaded: dags-folder","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":209}
+{"timestamp":"2026-05-02T15:11:14.578960Z","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/iut_data_extractor.py","logger":"airflow.dag_processing.dagbag.BundleDagBag","filename":"dagbag.py","lineno":469}
+{"timestamp":"2026-05-02T15:11:14.586913Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"UserWarning","filename":"/opt/airflow/dags/iut_data_extractor.py","lineno":2,"logger":"py.warnings"}
+{"timestamp":"2026-05-02T15:11:15.214902Z","level":"info","event":"OCCUPIED ROOMS: No changes detected — file remains the same.","logger":"task.stdout"}
+{"timestamp":"2026-05-02T15:11:15.216321Z","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.operators.python.PythonOperator","filename":"python.py","lineno":229}

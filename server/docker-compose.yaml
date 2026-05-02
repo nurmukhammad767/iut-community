@@ -1,0 +1,228 @@
+# Centralized Docker Compose — Airflow + FastAPI Backend
+# Separate databases for Airflow and Backend
+#
+# Required .env variables:
+#   AIRFLOW_UID=1000
+#   FERNET_KEY=your_generated_fernet_key
+#   AIRFLOW_PROJ_DIR=./timetable_web_scraping
+#
+# Usage:
+#   docker compose up airflow-init   (first time only)
+#   docker compose up -d             (start all services)
+#   docker compose down              (stop all services)
+---
+
+x-airflow-common:
+  &airflow-common
+  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:3.2.1}
+  env_file:
+    - ${ENV_FILE_PATH:-.env}
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
+    AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: 'http://airflow-apiserver:8080/execution/'
+    AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET:-airflow_jwt_secret}
+    AIRFLOW__API_AUTH__JWT_ISSUER: ${AIRFLOW__API_AUTH__JWT_ISSUER:-airflow}
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+    AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+  volumes:
+    - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
+    - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
+    - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
+    - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_PROJ_DIR:-.}/parsed_data:/opt/airflow/parsed_data
+    - ${AIRFLOW_PROJ_DIR:-.}/scripts:/opt/airflow/scripts
+  user: "${AIRFLOW_UID:-50000}:0"
+  depends_on:
+    &airflow-common-depends-on
+    airflow-postgres:
+      condition: service_healthy
+
+services:
+
+  # ------------------------------------------------------------------
+  # FastAPI Backend
+  # ------------------------------------------------------------------
+  backend:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://backend:backend@backend-postgres:5432/backend
+    volumes:
+      - ./auth:/app
+      - ${AIRFLOW_PROJ_DIR:-.}/parsed_data:/app/parsed_data
+    depends_on:
+      backend-postgres:
+        condition: service_healthy
+    restart: always
+
+  # ------------------------------------------------------------------
+  # Backend Database (FastAPI only) — not exposed to host
+  # ------------------------------------------------------------------
+  backend-postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: backend
+      POSTGRES_PASSWORD: backend
+      POSTGRES_DB: backend
+    volumes:
+      - backend-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "backend"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    restart: always
+
+  # ------------------------------------------------------------------
+  # Airflow Database (Airflow only) — not exposed to host
+  # ------------------------------------------------------------------
+  airflow-postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    restart: always
+
+  # ------------------------------------------------------------------
+  # Airflow Init (run once to migrate DB and create admin user)
+  # ------------------------------------------------------------------
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        if [[ -z "${AIRFLOW_UID}" ]]; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: AIRFLOW_UID not set!\e[0m"
+          echo
+          export AIRFLOW_UID=$$(id -u)
+        fi
+        mkdir -v -p /opt/airflow/{logs,dags,plugins,config,parsed_data,scripts}
+        /entrypoint airflow version
+        /entrypoint airflow config list >/dev/null
+        chown -R "${AIRFLOW_UID}:0" /opt/airflow/
+        chown -v -R "${AIRFLOW_UID}:0" /opt/airflow/{logs,dags,plugins,config,parsed_data,scripts}
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_MIGRATE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+      _PIP_ADDITIONAL_REQUIREMENTS: ''
+    user: "0:0"
+
+  # ------------------------------------------------------------------
+  # Airflow API Server (Web UI at http://localhost:8080)
+  # ------------------------------------------------------------------
+  airflow-apiserver:
+    <<: *airflow-common
+    command: api-server
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/monitor/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  # ------------------------------------------------------------------
+  # Airflow Scheduler
+  # ------------------------------------------------------------------
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8974/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  # ------------------------------------------------------------------
+  # Airflow DAG Processor
+  # ------------------------------------------------------------------
+  airflow-dag-processor:
+    <<: *airflow-common
+    command: dag-processor
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type DagProcessorJob --hostname "$${HOSTNAME}"']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  # ------------------------------------------------------------------
+  # Airflow Triggerer
+  # ------------------------------------------------------------------
+  airflow-triggerer:
+    <<: *airflow-common
+    command: triggerer
+    healthcheck:
+      test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  # ------------------------------------------------------------------
+  # Airflow CLI (debug only)
+  # ------------------------------------------------------------------
+  airflow-cli:
+    <<: *airflow-common
+    profiles:
+      - debug
+    environment:
+      <<: *airflow-common-env
+      CONNECTION_CHECK_MAX_COUNT: "0"
+    command:
+      - bash
+      - -c
+      - airflow
+    depends_on:
+      <<: *airflow-common-depends-on
+
+volumes:
+  airflow-db-volume:    # Airflow metadata database
+  backend-db-volume:    # FastAPI backend database
