@@ -1,0 +1,49 @@
+name: Deploy to Digital Ocean
+
+on:
+  push:
+    branches:
+      - main        # triggers on every push to main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. SSH into droplet and deploy
+      - name: Deploy to Digital Ocean
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Go to project folder
+            cd /root/iut-community
+
+            # Pull latest code
+            git pull origin main
+
+            # Write .env file from secrets
+            cat > server/.env << EOF
+            AIRFLOW_UID=1000
+            FERNET_KEY=${{ secrets.FERNET_KEY }}
+            AIRFLOW_PROJ_DIR=./timetable_web_scraping
+            _AIRFLOW_WWW_USER_USERNAME=admin
+            _AIRFLOW_WWW_USER_PASSWORD=${{ secrets.AIRFLOW_WWW_PASSWORD }}
+            EOF
+
+            # Go to server folder
+            cd server
+
+            # Rebuild and restart only changed services
+            sudo docker compose up -d --build
+
+            # Remove unused images to save disk space
+            sudo docker image prune -f
