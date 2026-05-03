@@ -9,3 +9,9 @@ class Registration(BaseModel):
 class Login(BaseModel):
     student_id : str
     password : str
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
+    full_name: str
+    role: str
