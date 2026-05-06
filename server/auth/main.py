@@ -65,10 +65,10 @@ def login(data: Login):
 
 
 # ── PROTECTED EXAMPLE ─────────────────────────────────────────────────────────
-@app.get("/me")
-def get_me(current_user: dict = Depends(get_current_user)):
-    return {
-        "student_id": current_user["sub"],
-        "full_name": current_user["full_name"],
-        "role": current_user["role"],
-    }
+# @app.get("/me")
+# def get_me(current_user: dict = Depends(get_current_user)):
+#     return {
+#         "student_id": current_user["sub"],
+#         "full_name": current_user["full_name"],
+#         "role": current_user["role"],
+#     }
