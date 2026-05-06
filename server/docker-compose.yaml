@@ -58,7 +58,7 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://backend:backend@backend-postgres:5432/backend
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@backend-postgres:${DB_PORT}/${DB_NAME}
     volumes:
       - ./auth:/app
       - ${AIRFLOW_PROJ_DIR:-.}/parsed_data:/app/parsed_data
@@ -72,14 +72,18 @@ services:
   # ------------------------------------------------------------------
   backend-postgres:
     image: postgres:16
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: backend
-      POSTGRES_PASSWORD: backend
-      POSTGRES_DB: backend
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - backend-db-volume:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT}:5432"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "backend"]
+      test: ["CMD", "pg_isready", "-U", "${BACKEND_DB_USER}"]
       interval: 10s
       retries: 5
       start_period: 5s
