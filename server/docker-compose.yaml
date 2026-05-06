@@ -58,10 +58,12 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@backend-postgres:5432${DB_NAME}
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@backend-postgres:5432/${DB_NAME}
     volumes:
       - ./auth:/app
+      - ./db:/app/db
       - ${AIRFLOW_PROJ_DIR:-.}/parsed_data:/app/parsed_data
+      - ./001_init.sql:/app/001_init.sql
     depends_on:
       backend-postgres:
         condition: service_healthy
