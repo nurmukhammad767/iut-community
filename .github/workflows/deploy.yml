@@ -34,21 +34,17 @@ jobs:
 
             # 4. Re-create the .env file
             cat > server/.env << EOF
-                  AIRFLOW_UID=1000
-                  FERNET_KEY=${{ secrets.FERNET_KEY }}
-                  AIRFLOW_PROJ_DIR=./timetable_web_scraping
-                  _AIRFLOW_WWW_USER_USERNAME=admin
-                  _AIRFLOW_WWW_USER_PASSWORD=${{ secrets.AIRFLOW_PASSWORD }}
-                  DB_HOST=backend-postgres
-                  DB_PORT=5432
-                  DB_NAME=${{ secrets.DB_NAME }}
-                  DB_USER=${{ secrets.DB_USER }}
-                  DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-                  EOF
-
-                  cd server
-                  sudo docker compose up -d --build --remove-orphans
-                  sudo docker image prune -f
+            AIRFLOW_UID=1000
+            FERNET_KEY=${{ secrets.FERNET_KEY }}
+            AIRFLOW_PROJ_DIR=./timetable_web_scraping
+            _AIRFLOW_WWW_USER_USERNAME=admin
+            _AIRFLOW_WWW_USER_PASSWORD=${{ secrets.AIRFLOW_WWW_PASSWORD }}
+            DB_HOST=backend-postgres
+            DB_PORT=5432
+            DB_NAME=${{ secrets.DB_NAME }}
+            DB_USER=${{ secrets.DB_USER }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            EOF
 
             # 5. Build and Restart Services
             cd server
