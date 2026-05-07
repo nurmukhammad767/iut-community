@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   deploy:
     name: Deploy
@@ -24,38 +21,35 @@ jobs:
           username: ${{ secrets.DROPLET_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # 1. Exit immediately if any command fails
             set -e
 
-            # 1. Navigate and Update Code
+            # 2. Navigate to project folder
             cd /root/iut-community
+
+            # 3. Force-update the repository
+            # This wipes any local changes on the server that might prevent a 'git pull'
             git fetch origin main
             git reset --hard origin/main
-            echo "✅ Code updated"
 
-            # 2. Overwrite .env with latest GitHub Secrets
-            # We use a heredoc to ensure the server always has the latest config
-            echo "📝 Updating .env file..."
+            # 4. Re-create the .env file
             cat > server/.env << EOF
             AIRFLOW_UID=1000
             FERNET_KEY=${{ secrets.FERNET_KEY }}
             AIRFLOW_PROJ_DIR=./timetable_web_scraping
             _AIRFLOW_WWW_USER_USERNAME=admin
             _AIRFLOW_WWW_USER_PASSWORD=${{ secrets.AIRFLOW_WWW_PASSWORD }}
-            DB_HOST=backend-postgres
-            DB_PORT=${{ secrets.DB_PORT }}
-            DB_NAME=${{ secrets.DB_NAME }}
-            DB_USER=${{ secrets.DB_USER }}
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-            DATABASE_URL=postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@backend-postgres:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }}
             EOF
-            echo "✅ .env updated with latest secrets"
 
-            # 3. Build and restart services
+            # 5. Build and Restart Services
             cd server
-            # --remove-orphans ensures old containers from previous configs are cleaned up
-            sudo docker compose up -d --build --remove-orphans
-            echo "✅ Services restarted"
+            
+            # Pull new base images (like Airflow/Postgres) if they've been updated
+            sudo docker compose pull
+            
+            # Rebuild your custom images and restart the containers
+            # The --build flag ensures your latest code changes are baked into the image
+            sudo docker compose up -d --build
 
-            # 4. Cleanup
+            # 6. Housekeeping: Remove old, dangling images to save disk space
             sudo docker image prune -f
-            echo "🚀 Deployment complete!"
