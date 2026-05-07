@@ -46,6 +46,10 @@ jobs:
                   DB_PASSWORD=${{ secrets.DB_PASSWORD }}
                   EOF
 
+                  cd server
+                  sudo docker compose up -d --build --remove-orphans
+                  sudo docker image prune -f
+
             # 5. Build and Restart Services
             cd server
             
