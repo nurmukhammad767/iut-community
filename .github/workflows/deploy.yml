@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   deploy:
     name: Deploy
@@ -21,35 +24,37 @@ jobs:
           username: ${{ secrets.DROPLET_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # 1. Exit immediately if any command fails
             set -e
 
-            # 2. Navigate to project folder
-            cd /root/iut-community
+            # 1. Navigate to project folder
+            cd /opt/iut-community
 
-            # 3. Force-update the repository
-            # This wipes any local changes on the server that might prevent a 'git pull'
+            # 2. Force update repository
             git fetch origin main
             git reset --hard origin/main
 
-            # 4. Re-create the .env file
+            # 3. Write .env file with ALL variables
             cat > server/.env << EOF
             AIRFLOW_UID=1000
             FERNET_KEY=${{ secrets.FERNET_KEY }}
             AIRFLOW_PROJ_DIR=./timetable_web_scraping
             _AIRFLOW_WWW_USER_USERNAME=admin
             _AIRFLOW_WWW_USER_PASSWORD=${{ secrets.AIRFLOW_WWW_PASSWORD }}
+            DB_HOST=backend-postgres
+            DB_PORT=${{ secrets.DB_PORT }}
+            DB_NAME=${{ secrets.DB_NAME }}
+            DB_USER=${{ secrets.DB_USER }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            DATABASE_URL=postgresql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@backend-postgres:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }}
             EOF
 
-            # 5. Build and Restart Services
+            # 4. Verify .env was created
+            echo "✅ .env created at server/.env"
+            cat server/.env | grep -v PASSWORD | grep -v KEY   # print without secrets
+
+            # 5. Build and restart services
             cd server
-            
-            # Pull new base images (like Airflow/Postgres) if they've been updated
-            sudo docker compose pull
-            
-            # Rebuild your custom images and restart the containers
-            # The --build flag ensures your latest code changes are baked into the image
             sudo docker compose up -d --build
 
-            # 6. Housekeeping: Remove old, dangling images to save disk space
+            # 6. Cleanup old images
             sudo docker image prune -f
