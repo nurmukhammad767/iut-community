@@ -9,7 +9,6 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,7 +38,7 @@ jobs:
             AIRFLOW_PROJ_DIR=./timetable_web_scraping
             _AIRFLOW_WWW_USER_USERNAME=admin
             _AIRFLOW_WWW_USER_PASSWORD=${{ secrets.AIRFLOW_WWW_PASSWORD }}
-            DB_HOST=${{secrets.DB_HOST}}
+            DB_HOST=${{ secrets.DB_HOST }}
             DB_PORT=5432
             DB_NAME=${{ secrets.DB_NAME }}
             DB_USER=${{ secrets.DB_USER }}
@@ -48,10 +47,10 @@ jobs:
 
             # 5. Build and Restart Services
             cd server
-            
+
             # Pull new base images (like Airflow/Postgres) if they've been updated
             sudo docker compose pull
-            
+
             # Rebuild your custom images and restart the containers
             # The --build flag ensures your latest code changes are baked into the image
             sudo docker compose up -d --build
