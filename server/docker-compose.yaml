@@ -56,7 +56,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - /opt/iut-community/.env
     environment:
       DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}
     volumes:
@@ -67,6 +67,8 @@ services:
     depends_on:
       backend-postgres:
         condition: service_healthy
+      backend-migrate:
+        condition: service_completed_successfully
     restart: always
 
   # ------------------------------------------------------------------
@@ -92,6 +94,17 @@ services:
       start_period: 5s
     restart: always
 
+  backend-migrate:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@backend-postgres:${DB_PORT}/${DB_NAME}
+    command: alembic upgrade head
+    depends_on:
+      backend-postgres:
+        condition: service_healthy
+    restart: on-failure
   # ------------------------------------------------------------------
   # Airflow Database (Airflow only) — not exposed to host
   # ------------------------------------------------------------------
