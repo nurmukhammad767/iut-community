@@ -15,11 +15,9 @@ jobs:
 
     steps:
 
-      # 1. Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. SSH into droplet and deploy
       - name: Deploy to Digital Ocean
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -32,14 +30,13 @@ jobs:
             # -------------------------------------------------------
             # 1. Pull latest code
             # -------------------------------------------------------
-            cd /opt/iut-community
+            cd /root/iut-community
             git fetch origin main
             git reset --hard origin/main
             echo "✅ Code updated"
 
             # -------------------------------------------------------
             # 2. Create .env ONLY if it doesn't exist
-            #    This prevents overwriting on every deploy
             # -------------------------------------------------------
             if [ ! -f server/.env ]; then
               echo "📝 .env not found — creating for the first time..."
@@ -58,7 +55,7 @@ jobs:
             EOF
               echo "✅ .env created"
             else
-              echo "⏭️  .env already exists — skipping (no overwrite)"
+              echo "⏭️  .env already exists — skipping"
             fi
 
             # -------------------------------------------------------
@@ -69,10 +66,7 @@ jobs:
             echo "✅ Services restarted"
 
             # -------------------------------------------------------
-            # 4. Cleanup old images
+            # 4. Cleanup
             # -------------------------------------------------------
             sudo docker image prune -f
-            echo "✅ Old images cleaned up"
-
-            echo ""
             echo "🚀 Deployment complete!"
