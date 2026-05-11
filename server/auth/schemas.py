@@ -4,6 +4,7 @@ class Registration(BaseModel):
     student_id : str
     password : str
     full_name : str
+    group : str
     role : str
 
 class Login(BaseModel):

@@ -28,6 +28,7 @@ class User(Base):
     student_identifier = Column(String(50), unique=True, nullable=False, comment="Can be email or university ID")
     password_hash = Column(String(255), nullable=False)
     full_name = Column(String(100), nullable=False, comment="Needed to display names in Chat")
+    group=Column(String(50), nullable=False)
     role = Column(Enum(UserRole), nullable=False, default=UserRole.student)
     created_at = Column(DateTime, default=func.now())
 

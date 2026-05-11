@@ -9,55 +9,44 @@ app = FastAPI()
 
 @app.post("/register", status_code=201, tags=["Auth"])
 def register(data: Registration, db: Session = Depends(get_connection)):
-    # 1. Check duplicate
     existing = db.query(User).filter(
         User.student_identifier == data.student_id
     ).first()
     if existing:
         raise HTTPException(status_code=400, detail="Student ID already registered")
-
-    # 2. Save to DB with hashed password
     new_user = User(
         student_identifier=data.student_id,
-        password_hash=hash_password(data.password),
+        password_hash=hash_password(data.password[:72]),
         full_name=data.full_name,
+        group = data.group,
         role=UserRole[data.role],
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-
     return {"message": f"User '{new_user.full_name}' registered successfully"}
-
 
 @app.post("/login", response_model=TokenResponse, tags=["Auth"])
 def login(data: Login, db: Session = Depends(get_connection)):
-    # 1. Find user
     user = db.query(User).filter(
         User.student_identifier == data.student_id
     ).first()
     if not user:
         raise HTTPException(status_code=404, detail="Student ID not found")
-
-    # 2. Verify password
-    if not verify_password(data.password, user.password_hash):
+    if not verify_password(data.password[:72], user.password_hash):
         raise HTTPException(status_code=401, detail="Incorrect password")
-
-    # 3. Create JWT token
     token = create_access_token(data={
         "sub": str(user.id),
         "student_id": user.student_identifier,
         "full_name": user.full_name,
         "role": user.role.value,
     })
-
     return TokenResponse(
         access_token=token,
         token_type="bearer",
         full_name=user.full_name,
         role=user.role.value,
     )
-
 
 @app.get("/me", tags=["Auth"])
 def get_me(current_user: dict = Depends(get_current_user)):
