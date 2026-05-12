@@ -193,6 +193,10 @@ services:
     build: .
     env_file:
       - .env
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@backend-postgres:5432/${DB_NAME}
+      DB_HOST: backend-postgres
+      DB_PORT: "5432"
     command: ./entrypoint.sh
     volumes:
       - ./db/versions:/app/db/versions

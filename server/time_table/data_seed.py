@@ -25,12 +25,12 @@ def insert(file_paths):
 
 if __name__ == '__main__':
     json_path = [
-        # '/app/parsed_data/available_rooms_ranges.json',
-        # '/app/parsed_data/occupied_rooms.json',
-        # '/app/parsed_data/timetable_with_groups.json'
-        '/home/nurmukhammad/projects/iut-community/server/timetable_web_scraping/parsed_data/available_rooms_ranges.json',
-        '/home/nurmukhammad/projects/iut-community/server/timetable_web_scraping/parsed_data/occupied_rooms.json',
-        '/home/nurmukhammad/projects/iut-community/server/timetable_web_scraping/parsed_data/timetable_with_groups.json'
+        '/app/parsed_data/available_rooms_ranges.json',
+        '/app/parsed_data/occupied_rooms.json',
+        '/app/parsed_data/timetable_with_groups.json'
+        # '/home/nurmukhammad/projects/iut-community/server/timetable_web_scraping/parsed_data/available_rooms_ranges.json',
+        # '/home/nurmukhammad/projects/iut-community/server/timetable_web_scraping/parsed_data/occupied_rooms.json',
+        # '/home/nurmukhammad/projects/iut-community/server/timetable_web_scraping/parsed_data/timetable_with_groups.json'
     ]
     insert(json_path)
     print("All data inserted successfully!")
