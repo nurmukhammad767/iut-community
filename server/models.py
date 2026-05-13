@@ -1,8 +1,8 @@
 import uuid
 from sqlalchemy import (
     Column, String, Text, DateTime, Enum, ForeignKey, Index, Integer,
-    UniqueConstraint
-)
+    UniqueConstraint,
+)  # Integer kept for RoomUsageDaily
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
@@ -112,29 +112,6 @@ class ClubMember(Base):
 
     __table_args__ = (
         UniqueConstraint("club_id", "student_id", name="idx_unique_club_member"),
-    )
-
-
-class RoomBooking(Base):
-    __tablename__ = "room_bookings"
-
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    room_name = Column(String(50), nullable=False)
-    student_id = Column(
-        UUID(as_uuid=True),
-        ForeignKey("users.id", deferrable=True, initially="IMMEDIATE"),
-        nullable=False,
-    )
-    day = Column(String(20), nullable=False, comment="Monday..Friday")
-    start_period = Column(Integer, nullable=False)
-    end_period = Column(Integer, nullable=False)
-    status = Column(String(20), nullable=False, default="active",
-                    comment="active | cancelled | expired")
-    booked_at = Column(DateTime, default=func.now(), nullable=False)
-
-    __table_args__ = (
-        Index("idx_room_bookings_day_room", "day", "room_name"),
-        Index("idx_room_bookings_student", "student_id"),
     )
 
 

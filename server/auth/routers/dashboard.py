@@ -7,11 +7,10 @@ from sqlalchemy.orm import Session
 from db_config import get_connection
 from jwt import get_current_user
 from models import (
-    Assignment, Club, ClubMember, Course, CourseEnrollment,
-    RoomBooking, User,
+    Assignment, Club, ClubMember, Course, CourseEnrollment, User,
 )
 from schemas import (
-    AssignmentOut, BookingOut, ClubOut, CourseOut, DashboardOut,
+    AssignmentOut, ClubOut, CourseOut, DashboardOut,
 )
 
 
@@ -52,17 +51,6 @@ def get_dashboard(
             .all()
         )
 
-    my_bookings = (
-        db.query(RoomBooking)
-        .filter(
-            RoomBooking.student_id == student_id,
-            RoomBooking.status == "active",
-        )
-        .order_by(RoomBooking.booked_at.desc())
-        .limit(5)
-        .all()
-    )
-
     my_clubs = (
         db.query(Club)
         .join(ClubMember, ClubMember.club_id == Club.id)
@@ -86,6 +74,5 @@ def get_dashboard(
             )
             for a, c in assignments_rows
         ],
-        my_bookings=[BookingOut.model_validate(b) for b in my_bookings],
         my_clubs=[ClubOut.model_validate(c) for c in my_clubs],
     )

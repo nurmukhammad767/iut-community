@@ -56,27 +56,6 @@ class PostOut(BaseModel):
     created_at: datetime
 
 
-# ---------- Bookings ----------
-
-class BookingCreate(BaseModel):
-    room_name: str = Field(min_length=1, max_length=50)
-    day: str = Field(pattern="^(Monday|Tuesday|Wednesday|Thursday|Friday)$")
-    start_period: int = Field(ge=1, le=10)
-    end_period: int = Field(ge=1, le=10)
-
-
-class BookingOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-    id: UUID
-    room_name: str
-    student_id: UUID
-    day: str
-    start_period: int
-    end_period: int
-    status: str
-    booked_at: datetime
-
-
 # ---------- Dashboard ----------
 
 class AssignmentOut(BaseModel):
@@ -102,5 +81,4 @@ class DashboardOut(BaseModel):
     group: str
     enrolled_courses: List[CourseOut]
     upcoming_assignments: List[AssignmentOut]
-    my_bookings: List[BookingOut]
     my_clubs: List[ClubOut]

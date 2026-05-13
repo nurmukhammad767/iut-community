@@ -6,7 +6,7 @@ from jwt import hash_password, verify_password, create_access_token, get_current
 from db_config import engine, get_connection
 from models import User, UserRole
 from graphql_api.router import router as graphql_router
-from routers import bookings, clubs, dashboard, posts
+from routers import clubs, dashboard, posts
 from telemetry import init_telemetry
 from ws import chat as ws_chat
 from ws import notifications as ws_notifications
@@ -25,7 +25,6 @@ def healthz():
 
 app.include_router(clubs.router)
 app.include_router(posts.router)
-app.include_router(bookings.router)
 app.include_router(dashboard.router)
 app.include_router(ws_chat.router)
 app.include_router(ws_notifications.router)

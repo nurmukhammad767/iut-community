@@ -377,3 +377,120 @@ def clear_notifications(current_user: dict = Depends(get_current_user)):
 
 
 app.include_router(notif_router)
+
+
+# ---------------------------------------------------------------------------
+# Room bookings (MongoDB — moved from relational DB)
+# ---------------------------------------------------------------------------
+
+class BookingCreate(BaseModel):
+    room_name: str = Field(min_length=1, max_length=50)
+    day: str = Field(pattern="^(Monday|Tuesday|Wednesday|Thursday|Friday)$")
+    start_period: int = Field(ge=1, le=10)
+    end_period: int = Field(ge=1, le=10)
+
+
+bookings_router = APIRouter(prefix="/bookings", tags=["Bookings"])
+
+
+def _booking_doc_to_dto(doc: dict) -> dict:
+    """Strip Mongo `_id` and return a plain DTO."""
+    out = {k: v for k, v in doc.items() if k != "_id"}
+    out["id"] = doc.get("_id")
+    return out
+
+
+def _has_conflict(
+    room_name: str, day: str, start: int, end: int
+) -> bool:
+    """A booking conflicts if its period range overlaps [start, end] on the same room+day."""
+    return db["room_bookings"].find_one({
+        "room_name": room_name,
+        "day": day,
+        "status": "active",
+        "start_period": {"$lte": end},
+        "end_period": {"$gte": start},
+    }) is not None
+
+
+@bookings_router.post(
+    "",
+    status_code=201,
+    responses={409: {"description": "Time slot conflict"}},
+)
+def create_booking(
+    payload: BookingCreate,
+    current_user: dict = Depends(get_current_user),
+):
+    if payload.start_period > payload.end_period:
+        raise HTTPException(
+            status_code=400,
+            detail="start_period must be <= end_period",
+        )
+
+    if _has_conflict(payload.room_name, payload.day,
+                     payload.start_period, payload.end_period):
+        raise HTTPException(
+            status_code=409,
+            detail=f"Room {payload.room_name} on {payload.day} "
+                   f"periods {payload.start_period}-{payload.end_period} is taken",
+        )
+
+    doc = {
+        "_id": uuid.uuid4().hex,
+        "student_id": current_user.get("sub"),
+        "student_identifier": current_user.get("student_id"),
+        "full_name": current_user.get("full_name"),
+        "group": current_user.get("group"),
+        "role": current_user.get("role"),
+        "room_name": payload.room_name,
+        "day": payload.day,
+        "start_period": payload.start_period,
+        "end_period": payload.end_period,
+        "status": "active",
+        "booked_at": datetime.now(tz=timezone.utc),
+    }
+    db["room_bookings"].insert_one(doc)
+    return _booking_doc_to_dto(doc)
+
+
+@bookings_router.get("")
+def list_my_bookings(current_user: dict = Depends(get_current_user)):
+    student_id = current_user.get("sub")
+    rows = list(
+        db["room_bookings"]
+        .find({"student_id": student_id, "status": "active"})
+        .sort("booked_at", -1)
+    )
+    return [_booking_doc_to_dto(r) for r in rows]
+
+
+@bookings_router.delete("/{booking_id}", status_code=204)
+def cancel_booking(
+    booking_id: str,
+    current_user: dict = Depends(get_current_user),
+):
+    booking = db["room_bookings"].find_one({"_id": booking_id})
+    if not booking:
+        raise HTTPException(status_code=404, detail="Booking not found")
+    if booking.get("student_id") != current_user.get("sub"):
+        raise HTTPException(status_code=403, detail="Not your booking")
+
+    db["room_bookings"].update_one(
+        {"_id": booking_id},
+        {"$set": {"status": "cancelled"}},
+    )
+
+
+# Useful indexes (created idempotently at startup)
+db["room_bookings"].create_index(
+    [("room_name", 1), ("day", 1), ("status", 1)],
+    name="idx_room_day_status",
+)
+db["room_bookings"].create_index(
+    [("student_id", 1)],
+    name="idx_student",
+)
+
+
+app.include_router(bookings_router)

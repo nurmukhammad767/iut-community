@@ -111,15 +111,6 @@ export type DashboardResponse = {
 		due_date: string
 		status: string
 	}[]
-	my_bookings: {
-		id: string
-		room_name: string
-		day: string
-		start_period: number
-		end_period: number
-		status: string
-		booked_at: string
-	}[]
 	my_clubs: { id: string; name: string; description: string }[]
 }
 
@@ -169,6 +160,11 @@ export async function createPost(clubId: string, body: string): Promise<Post> {
 
 export type Booking = {
 	id: string
+	student_id: string
+	student_identifier: string
+	full_name: string
+	group: string
+	role: string
 	room_name: string
 	day: string
 	start_period: number

@@ -17,7 +17,7 @@ from sqlalchemy.orm import Session
 from db_config import SessionLocal
 from models import (
     User, UserRole, Course, CourseEnrollment, Assignment,
-    Club, ClubMember, ClubPost, RoomBooking,
+    Club, ClubMember, ClubPost,
 )
 
 
@@ -212,30 +212,6 @@ def seed_posts(db: Session, users: dict, clubs: dict) -> None:
     db.commit()
 
 
-def seed_bookings(db: Session, users: dict) -> None:
-    existing = {
-        (b.student_id, b.day, b.room_name, b.start_period)
-        for b in db.query(RoomBooking).all()
-    }
-    samples = [
-        ("U22107001", "Monday", "A605", 3, 4),
-        ("U22107002", "Tuesday", "B209", 1, 2),
-        ("U22107007", "Wednesday", "A605", 5, 6),
-    ]
-    for sid, day, room, start, end in samples:
-        student = users[sid]
-        if (student.id, day, room, start) in existing:
-            continue
-        db.add(RoomBooking(
-            student_id=student.id,
-            day=day,
-            room_name=room,
-            start_period=start,
-            end_period=end,
-        ))
-    db.commit()
-
-
 def main() -> None:
     db = SessionLocal()
     try:
@@ -262,9 +238,6 @@ def main() -> None:
 
         print("Seeding club posts...")
         seed_posts(db, users, clubs)
-
-        print("Seeding room bookings...")
-        seed_bookings(db, users)
 
         print("Seed complete.")
     finally:

@@ -1,8 +1,9 @@
 """GraphQL schema exposing a single `dashboard` query.
 
-REST would require 4+ round-trips (user, courses, assignments, bookings, clubs).
-GraphQL collapses this to one request with client-selected fields, which is
-the textbook use case for protocol choice justification (R7).
+REST would require 4+ round-trips (user, courses, assignments, clubs, plus a
+separate call to the timetable service for Mongo-backed bookings). GraphQL
+collapses the relational subset to one request with client-selected fields,
+which is the textbook use case for protocol choice justification (R7).
 """
 from datetime import datetime, timedelta
 from uuid import UUID
@@ -11,8 +12,7 @@ import graphene
 
 from db_config import SessionLocal
 from models import (
-    Assignment, Club, ClubMember, Course, CourseEnrollment,
-    RoomBooking, User,
+    Assignment, Club, ClubMember, Course, CourseEnrollment, User,
 )
 
 
@@ -31,16 +31,6 @@ class AssignmentType(graphene.ObjectType):
     status = graphene.String()
 
 
-class BookingType(graphene.ObjectType):
-    id = graphene.String()
-    room_name = graphene.String()
-    day = graphene.String()
-    start_period = graphene.Int()
-    end_period = graphene.Int()
-    status = graphene.String()
-    booked_at = graphene.DateTime()
-
-
 class ClubType(graphene.ObjectType):
     id = graphene.String()
     name = graphene.String()
@@ -53,7 +43,6 @@ class DashboardType(graphene.ObjectType):
     group = graphene.String()
     enrolled_courses = graphene.List(CourseType)
     upcoming_assignments = graphene.List(AssignmentType)
-    my_bookings = graphene.List(BookingType)
     my_clubs = graphene.List(ClubType)
 
 
@@ -99,17 +88,6 @@ class Query(graphene.ObjectType):
                     .all()
                 )
 
-            bookings = (
-                db.query(RoomBooking)
-                .filter(
-                    RoomBooking.student_id == sid,
-                    RoomBooking.status == "active",
-                )
-                .order_by(RoomBooking.booked_at.desc())
-                .limit(10)
-                .all()
-            )
-
             clubs = (
                 db.query(Club)
                 .join(ClubMember, ClubMember.club_id == Club.id)
@@ -135,18 +113,6 @@ class Query(graphene.ObjectType):
                         status=a.status,
                     )
                     for a, c in assignment_rows
-                ],
-                my_bookings=[
-                    BookingType(
-                        id=str(b.id),
-                        room_name=b.room_name,
-                        day=b.day,
-                        start_period=b.start_period,
-                        end_period=b.end_period,
-                        status=b.status,
-                        booked_at=b.booked_at,
-                    )
-                    for b in bookings
                 ],
                 my_clubs=[
                     ClubType(id=str(c.id), name=c.name, description=c.description)
