@@ -5,3 +5,4 @@ python-dotenv==1.2.2
 graphene==3.4.3
 graphql-core==3.2.8
 graphql-relay==3.2.0
+python-jose[cryptography]==3.3.0

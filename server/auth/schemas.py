@@ -14,5 +14,3 @@ class Login(BaseModel):
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str
-    full_name: str
-    role: str

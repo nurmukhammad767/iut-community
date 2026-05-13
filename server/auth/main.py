@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from schemas import Registration, Login, TokenResponse
 from jwt import hash_password, verify_password, create_access_token, get_current_user
@@ -6,6 +7,9 @@ from db_config import get_connection
 from models import User, UserRole
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
+)
 
 @app.post("/register", status_code=201, tags=["Auth"])
 def register(data: Registration, db: Session = Depends(get_connection)):
@@ -39,13 +43,11 @@ def login(data: Login, db: Session = Depends(get_connection)):
         "sub": str(user.id),
         "student_id": user.student_identifier,
         "full_name": user.full_name,
-        "role": user.role.value,
+        "group": user.group,
     })
     return TokenResponse(
-        access_token=token,
         token_type="bearer",
-        full_name=user.full_name,
-        role=user.role.value,
+        access_token=token
     )
 
 @app.get("/me", tags=["Auth"])
@@ -53,5 +55,6 @@ def get_me(current_user: dict = Depends(get_current_user)):
     return {
         "student_id": current_user["student_id"],
         "full_name": current_user["full_name"],
-        "role": current_user["role"],
+        "group": current_user["group"],
+        "role": current_user["role"]
     }
