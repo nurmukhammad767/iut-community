@@ -3,13 +3,31 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from schemas import Registration, Login, TokenResponse
 from jwt import hash_password, verify_password, create_access_token, get_current_user
-from db_config import get_connection
+from db_config import engine, get_connection
 from models import User, UserRole
+from graphql_api.router import router as graphql_router
+from routers import bookings, clubs, dashboard, posts
+from telemetry import init_telemetry
+from ws import chat as ws_chat
 
-app = FastAPI()
+app = FastAPI(title="IUT Community API")
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
 )
+init_telemetry(app, sqlalchemy_engine=engine)
+
+
+@app.get("/healthz", tags=["Health"])
+def healthz():
+    return {"status": "ok"}
+
+
+app.include_router(clubs.router)
+app.include_router(posts.router)
+app.include_router(bookings.router)
+app.include_router(dashboard.router)
+app.include_router(ws_chat.router)
+app.include_router(graphql_router)
 
 @app.post("/register", status_code=201, tags=["Auth"])
 def register(data: Registration, db: Session = Depends(get_connection)):

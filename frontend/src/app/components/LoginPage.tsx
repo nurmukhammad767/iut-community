@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import {
+	fetchMe,
+	login,
+	setCurrentUser,
+	setToken,
+} from '../lib/api'
+import {
 	AlertDialog,
 	AlertDialogAction,
 	AlertDialogCancel,
@@ -16,6 +22,8 @@ export function LoginPage() {
 	const navigate = useNavigate()
 	const [studentId, setStudentId] = useState('')
 	const [password, setPassword] = useState('')
+	const [error, setError] = useState<string | null>(null)
+	const [submitting, setSubmitting] = useState(false)
 	const [backgroundImage] = useState(() => {
 		const backgrounds = [
 			'/assest/bg1.webp',
@@ -33,9 +41,21 @@ export function LoginPage() {
 		? `https://t.me/${adminTelegramUsername}`
 		: 'https://t.me/'
 
-	const handleLogin = (e: React.FormEvent) => {
+	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault()
-		navigate('/dashboard')
+		setError(null)
+		setSubmitting(true)
+		try {
+			const { access_token } = await login(studentId, password)
+			setToken(access_token)
+			const me = await fetchMe()
+			setCurrentUser(me)
+			navigate('/dashboard')
+		} catch (err) {
+			setError(err instanceof Error ? err.message : 'Login failed')
+		} finally {
+			setSubmitting(false)
+		}
 	}
 
 	return (
@@ -88,11 +108,18 @@ export function LoginPage() {
 								/>
 							</div>
 
+							{error && (
+								<div className='rounded-lg border border-red-300/40 bg-red-500/20 px-3 py-2 text-sm text-red-100'>
+									{error}
+								</div>
+							)}
+
 							<button
 								type='submit'
-								className='w-full rounded-lg border border-white/15 bg-blue-700 py-3 text-white transition hover:bg-blue-800 shadow-lg hover:shadow-xl'
+								disabled={submitting}
+								className='w-full rounded-lg border border-white/15 bg-blue-700 py-3 text-white transition hover:bg-blue-800 shadow-lg hover:shadow-xl disabled:opacity-60'
 							>
-								Login
+								{submitting ? 'Signing in…' : 'Login'}
 							</button>
 
 							<AlertDialog>

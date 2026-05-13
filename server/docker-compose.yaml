@@ -4,6 +4,9 @@
 #                          MONGO_USER, MONGO_PASSWORD, MONGO_DB
 
 ---
+include:
+  - observability/docker-compose.yaml
+
 x-airflow-common:
   &airflow-common
   image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:3.2.1}
@@ -22,6 +25,7 @@ x-airflow-common:
     AIRFLOW__API_AUTH__JWT_ISSUER: ${AIRFLOW__API_AUTH__JWT_ISSUER:-airflow}
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
     AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+    _PIP_ADDITIONAL_REQUIREMENTS: 'pymongo==4.17.0 psycopg2-binary==2.9.12 sqlalchemy==2.0.49'
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
@@ -36,6 +40,7 @@ x-airflow-common:
       condition: service_healthy
   networks:
     - airflow-net
+    - backend-net
 
 # ===========================================================================
 # NETWORKS
@@ -55,40 +60,101 @@ volumes:
   airflow-db-volume:
   backend-db-volume:
   mongo-db-volume:
+  redis-volume:
 
 # ===========================================================================
 # SERVICES
 # ===========================================================================
+# --------------------------------------------------------------------------
+# YAML anchor — both backend replicas share this base config.
+# --------------------------------------------------------------------------
+x-backend-common: &backend-common
+  build:
+    context: ./
+    dockerfile: Dockerfile
+  env_file:
+    - .env
+  environment: &backend-env
+    DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@backend-postgres:5432/${DB_NAME}
+    MONGO_URL: mongodb://mongodb:27017/${MONGO_DB}
+    REDIS_URL: redis://redis:6379/0
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://observability:4318
+    OTEL_SERVICE_NAME: iut-auth
+    OTEL_TRACES_EXPORTER: otlp
+    OTEL_METRICS_EXPORTER: otlp
+    OTEL_LOGS_EXPORTER: otlp
+  command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+  volumes:
+    - ./auth/main.py:/app/main.py
+    - ./auth/jwt.py:/app/jwt.py
+    - ./auth/schemas.py:/app/schemas.py
+    - ./auth/routers:/app/routers
+    - ./auth/ws:/app/ws
+    - ./auth/graphql_api:/app/graphql_api
+    - ./auth/rate_limiter:/app/rate_limiter
+    - ./alembic.ini:/app/alembic.ini
+    - ./db:/app/db
+    - ./timetable_web_scraping/parsed_data:/app/parsed_data
+  healthcheck:
+    test: ["CMD", "python", "-c", "import urllib.request,sys;sys.exit(0 if urllib.request.urlopen('http://localhost:8000/healthz').status==200 else 1)"]
+    interval: 15s
+    timeout: 5s
+    retries: 5
+    start_period: 20s
+  depends_on:
+    backend-postgres:
+      condition: service_healthy
+    mongodb:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+    migration:
+      condition: service_completed_successfully
+  restart: unless-stopped
+  networks:
+    - backend-net
+    - shared-net
+
 services:
 
   # --------------------------------------------------------------------------
-  # FastAPI Backend (Auth)
+  # FastAPI Backend replicas (load-balanced behind nginx gateway)
   # --------------------------------------------------------------------------
-  backend:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    env_file:
-      - .env
+  backend-1:
+    <<: *backend-common
     environment:
-      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@backend-postgres:5432/${DB_NAME}
-      MONGO_URL: mongodb://mongodb:27017/${MONGO_DB}
+      <<: *backend-env
+      REPLICA_ID: backend-1
+
+  backend-2:
+    <<: *backend-common
+    environment:
+      <<: *backend-env
+      REPLICA_ID: backend-2
+
+  # --------------------------------------------------------------------------
+  # Nginx API Gateway (sole public entry point)
+  # --------------------------------------------------------------------------
+  gateway:
+    image: nginx:1.27-alpine
+    ports:
+      - "8088:80"
     volumes:
-      - ./auth/main.py:/app/main.py
-      - ./auth/jwt.py:/app/jwt.py
-      - ./auth/schemas.py:/app/schemas.py
-      - ./alembic.ini:/app/alembic.ini
-      - ./db:/app/db
-      - ./timetable_web_scraping/parsed_data:/app/parsed_data
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./gateway/proxy.conf:/etc/nginx/proxy.conf:ro
     depends_on:
-      backend-postgres:
+      backend-1:
         condition: service_healthy
-      mongodb:
+      backend-2:
         condition: service_healthy
-      migration:
-        condition: service_completed_successfully
+      timetable:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/healthz"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
     restart: unless-stopped
     networks:
       - backend-net
@@ -101,16 +167,50 @@ services:
     build:
       context: ./time_table_backend
       dockerfile: Dockerfile
-    ports:
-      - "8001:8001"
+    expose:
+      - "8001"
     env_file:
       - .env
     environment:
       MONGO_URL: mongodb://mongodb:27017/${MONGO_DB}
       MONGO_DB: ${MONGO_DB}
+      REDIS_URL: redis://redis:6379/1
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://observability:4318
+      OTEL_SERVICE_NAME: iut-timetable
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: otlp
+      OTEL_LOGS_EXPORTER: otlp
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys;sys.exit(0 if urllib.request.urlopen('http://localhost:8001/healthz').status==200 else 1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     depends_on:
       mongodb:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - backend-net
+
+  # --------------------------------------------------------------------------
+  # Redis (cache, rate-limit buckets, chat backlog)
+  # --------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-volume:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
     restart: unless-stopped
     networks:
       - backend-net
@@ -197,10 +297,12 @@ services:
       DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@backend-postgres:5432/${DB_NAME}
       DB_HOST: backend-postgres
       DB_PORT: "5432"
-    command: ./entrypoint.sh
+    command: ["bash", "./entrypoint.sh"]
     volumes:
-      - ./db/versions:/app/db/versions
+      - ./db:/app/db
       - ./models.py:/app/models.py
+      - ./db_config.py:/app/db_config.py
+      - ./entrypoint.sh:/app/entrypoint.sh
     working_dir: /app
     depends_on:
       backend-postgres:

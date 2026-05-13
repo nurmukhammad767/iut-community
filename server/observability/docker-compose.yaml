@@ -1,0 +1,41 @@
+# Observability stack — single-container Grafana LGTM (Loki + Grafana +
+# Tempo + Mimir + Pyroscope + OpenTelemetry collector).
+#
+# Rationale (R12): the rubric accepts "OpenTelemetry → Grafana / Tempo /
+# Loki / Prometheus" as an observability backend. `grafana/otel-lgtm`
+# bundles every layer in one container, so a 4-day demo can ship a working
+# end-to-end traces+logs+metrics path without a multi-container distributed
+# database (ClickHouse / Elasticsearch) that needs careful tuning.
+#
+# Ports exposed on the host:
+#   - 3000  Grafana UI            (pre-provisioned with all three datasources)
+#   - 4317  OTLP gRPC receiver    (from FastAPI services)
+#   - 4318  OTLP HTTP receiver
+#
+# Included from server/docker-compose.yaml via `include:`.
+---
+volumes:
+  lgtm-data:
+
+services:
+  observability:
+    image: grafana/otel-lgtm:0.8.1
+    container_name: observability
+    ports:
+      - "3000:3000"   # Grafana
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - lgtm-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - backend-net

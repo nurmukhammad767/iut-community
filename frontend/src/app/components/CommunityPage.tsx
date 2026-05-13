@@ -1,125 +1,95 @@
-import { Calendar, MessageSquare, Search, Send, Users } from 'lucide-react'
-import { useState } from 'react'
-
-type Club = {
-	id: string
-	name: string
-	meeting: string
-	members: number
-	category: string
-}
-
-type Post = {
-	id: string
-	author: string
-	groupId: string
-	title: string
-	content: string
-	timeAgo: string
-	replies: number
-}
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
+import {
+	MessageSquare,
+	Search,
+	Send,
+	Users,
+} from 'lucide-react'
+import {
+	ApiError,
+	Club,
+	Post,
+	createPost,
+	joinClub,
+	listClubs,
+	listPosts,
+} from '../lib/api'
+import { ChatPanel } from './ChatPanel'
 
 export function CommunityPage() {
-	const [activeTab, setActiveTab] = useState<'clubs' | 'board'>('clubs')
+	const navigate = useNavigate()
+	const [activeTab, setActiveTab] = useState<'clubs' | 'board' | 'chat'>(
+		'clubs'
+	)
 	const [searchQuery, setSearchQuery] = useState('')
+	const [clubs, setClubs] = useState<Club[]>([])
+	const [error, setError] = useState<string | null>(null)
+	const [selectedClub, setSelectedClub] = useState<Club | null>(null)
+	const [posts, setPosts] = useState<Post[]>([])
+	const [draft, setDraft] = useState('')
+	const [posting, setPosting] = useState(false)
 
-	const clubs: Club[] = [
-		{
-			id: '1',
-			name: 'Coding Club',
-			meeting: 'Fridays, 4:00 PM',
-			members: 45,
-			category: 'Technology',
-		},
-		{
-			id: '2',
-			name: 'Robotics Society',
-			meeting: 'Wednesdays, 3:30 PM',
-			members: 32,
-			category: 'Engineering',
-		},
-		{
-			id: '3',
-			name: 'Photography Club',
-			meeting: 'Tuesdays, 5:00 PM',
-			members: 28,
-			category: 'Arts',
-		},
-		{
-			id: '4',
-			name: 'Debate Society',
-			meeting: 'Thursdays, 6:00 PM',
-			members: 38,
-			category: 'Arts',
-		},
-		{
-			id: '5',
-			name: 'Data Science Club',
-			meeting: 'Mondays, 4:30 PM',
-			members: 51,
-			category: 'Technology',
-		},
-		{
-			id: '6',
-			name: 'Sports Committee',
-			meeting: 'Saturdays, 10:00 AM',
-			members: 67,
-			category: 'Sports',
-		},
-	]
+	useEffect(() => {
+		listClubs()
+			.then(setClubs)
+			.catch(err => {
+				if (err instanceof ApiError && err.status === 401) {
+					navigate('/')
+					return
+				}
+				setError(err instanceof Error ? err.message : 'Failed to load clubs')
+			})
+	}, [navigate])
 
-	const posts: Post[] = [
-		{
-			id: '1',
-			author: 'Sarah Kim',
-			groupId: 'ICE-23-05',
-			title: 'Looking for 2 members for DAD project',
-			content:
-				'We need 2 more people for our Database project. Topic is E-commerce System. Contact me if interested!',
-			timeAgo: '2 hours ago',
-			replies: 5,
-		},
-		{
-			id: '2',
-			author: 'Mike Johnson',
-			groupId: 'ICE-23-08',
-			title: 'Found lost keys in A608',
-			content:
-				'Found a set of keys with a red keychain in room A608 after Professional Skills class. Check with me to claim.',
-			timeAgo: '5 hours ago',
-			replies: 2,
-		},
-		{
-			id: '3',
-			author: 'Emma Chen',
-			groupId: 'ICE-23-02',
-			title: 'Study group for Computer Networks midterm',
-			content:
-				'Starting a study group for CN midterm. Meeting this Saturday at 2 PM in library. DM if you want to join!',
-			timeAgo: '1 day ago',
-			replies: 12,
-		},
-		{
-			id: '4',
-			author: 'Alex Rivera',
-			groupId: 'ICE-23-11',
-			title: 'Selling used textbooks',
-			content:
-				'Selling Database and Networks textbooks in good condition. Half the original price. Contact for details.',
-			timeAgo: '1 day ago',
-			replies: 3,
-		},
-	]
+	useEffect(() => {
+		if (!selectedClub) {
+			setPosts([])
+			return
+		}
+		listPosts(selectedClub.id)
+			.then(setPosts)
+			.catch(() => setPosts([]))
+	}, [selectedClub])
 
-	const filteredClubs = clubs.filter(club =>
-		club.name.toLowerCase().includes(searchQuery.toLowerCase()),
+	const filteredClubs = clubs.filter(c =>
+		c.name.toLowerCase().includes(searchQuery.toLowerCase())
 	)
 
-	const filteredPosts = posts.filter(
-		post =>
-			post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			post.content.toLowerCase().includes(searchQuery.toLowerCase()),
-	)
+	const handleJoin = async (club: Club) => {
+		try {
+			await joinClub(club.id)
+		} catch (err) {
+			if (err instanceof ApiError && err.status === 409) {
+				// already a member — fine
+			} else {
+				setError(err instanceof Error ? err.message : 'Join failed')
+				return
+			}
+		}
+		setSelectedClub(club)
+		setActiveTab('board')
+	}
+
+	const handlePost = async (e: React.FormEvent) => {
+		e.preventDefault()
+		if (!selectedClub || !draft.trim()) return
+		setPosting(true)
+		setError(null)
+		try {
+			const newPost = await createPost(selectedClub.id, draft.trim())
+			setPosts(prev => [newPost, ...prev])
+			setDraft('')
+		} catch (err) {
+			if (err instanceof ApiError && err.status === 429) {
+				setError('Too many posts — slow down a bit.')
+			} else {
+				setError(err instanceof Error ? err.message : 'Post failed')
+			}
+		} finally {
+			setPosting(false)
+		}
+	}
 
 	return (
 		<div className='space-y-6'>
@@ -130,7 +100,12 @@ export function CommunityPage() {
 				</p>
 			</div>
 
-			{/* Tabs */}
+			{error && (
+				<div className='rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700'>
+					{error}
+				</div>
+			)}
+
 			<div className='flex gap-2 border-b border-gray-200'>
 				<button
 					onClick={() => setActiveTab('clubs')}
@@ -144,7 +119,8 @@ export function CommunityPage() {
 				</button>
 				<button
 					onClick={() => setActiveTab('board')}
-					className={`px-4 py-3 border-b-2 transition ${
+					disabled={!selectedClub}
+					className={`px-4 py-3 border-b-2 transition disabled:opacity-40 ${
 						activeTab === 'board'
 							? 'border-blue-600 text-blue-600'
 							: 'border-transparent text-gray-600 hover:text-gray-900'
@@ -152,117 +128,116 @@ export function CommunityPage() {
 				>
 					Notice Board
 				</button>
+				<button
+					onClick={() => setActiveTab('chat')}
+					disabled={!selectedClub}
+					className={`px-4 py-3 border-b-2 transition disabled:opacity-40 ${
+						activeTab === 'chat'
+							? 'border-blue-600 text-blue-600'
+							: 'border-transparent text-gray-600 hover:text-gray-900'
+					}`}
+				>
+					Live Chat
+				</button>
 			</div>
 
-			{/* Search */}
-			<div className='relative'>
-				<Search className='absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400' />
-				<input
-					type='text'
-					placeholder={
-						activeTab === 'clubs' ? 'Search clubs...' : 'Search posts...'
-					}
-					value={searchQuery}
-					onChange={e => setSearchQuery(e.target.value)}
-					className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition bg-white'
-				/>
-			</div>
-
-			{/* Content */}
-			{activeTab === 'clubs' ? (
-				<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
-					{filteredClubs.map(club => (
-						<div
-							key={club.id}
-							className='bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition'
-						>
-							<div className='flex items-start gap-3 mb-3'>
-								<div className='p-2 bg-blue-100 rounded-lg'>
-									<Users className='w-5 h-5 text-blue-600' />
-								</div>
-								<div className='flex-1 min-w-0'>
-									<h3 className='text-gray-900'>{club.name}</h3>
-									<p className='text-gray-500'>{club.category}</p>
-								</div>
+			{activeTab === 'clubs' && (
+				<>
+					<div className='relative'>
+						<Search className='absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400' />
+						<input
+							value={searchQuery}
+							onChange={e => setSearchQuery(e.target.value)}
+							placeholder='Search clubs…'
+							className='w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 outline-none focus:border-blue-500'
+						/>
+					</div>
+					<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+						{filteredClubs.map(club => (
+							<div
+								key={club.id}
+								className='rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition'
+							>
+								<h3 className='text-gray-900'>{club.name}</h3>
+								<p className='text-gray-600 text-sm mt-2 line-clamp-3'>
+									{club.description}
+								</p>
+								<button
+									onClick={() => handleJoin(club)}
+									className='mt-4 w-full rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 flex items-center justify-center gap-2'
+								>
+									<Users className='w-4 h-4' /> Join & open
+								</button>
 							</div>
+						))}
+						{filteredClubs.length === 0 && (
+							<p className='text-gray-500 col-span-full py-8 text-center'>
+								No clubs match your search.
+							</p>
+						)}
+					</div>
+				</>
+			)}
 
-							<div className='space-y-2'>
-								<div className='flex items-center gap-2 text-gray-600'>
-									<Calendar className='w-4 h-4' />
-									<span>{club.meeting}</span>
-								</div>
-								<div className='flex items-center gap-2 text-gray-600'>
-									<Users className='w-4 h-4' />
-									<span>{club.members} members</span>
-								</div>
-							</div>
+			{activeTab === 'board' && selectedClub && (
+				<div className='space-y-4'>
+					<div className='rounded-xl border border-gray-200 bg-white p-5'>
+						<h3 className='text-gray-900'>{selectedClub.name}</h3>
+						<p className='text-gray-500 text-sm'>{selectedClub.description}</p>
+					</div>
 
-							<button className='w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition'>
-								Join Club
+					<form
+						onSubmit={handlePost}
+						className='rounded-xl border border-gray-200 bg-white p-4'
+					>
+						<textarea
+							value={draft}
+							onChange={e => setDraft(e.target.value)}
+							placeholder={`Share something with ${selectedClub.name}…`}
+							rows={3}
+							className='w-full rounded-lg border border-gray-200 px-3 py-2 outline-none focus:border-blue-500 resize-none'
+						/>
+						<div className='flex justify-end mt-2'>
+							<button
+								type='submit'
+								disabled={posting || !draft.trim()}
+								className='rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50 flex items-center gap-1'
+							>
+								<Send className='w-4 h-4' />
+								{posting ? 'Posting…' : 'Post'}
 							</button>
 						</div>
-					))}
-				</div>
-			) : (
-				<div className='space-y-4'>
-					{/* New Post Button */}
-					<button className='w-full bg-white border border-gray-300 rounded-lg p-4 text-left text-gray-500 hover:bg-gray-50 hover:border-gray-400 transition flex items-center gap-2'>
-						<Send className='w-5 h-5' />
-						<span>Create a new post...</span>
-					</button>
+					</form>
 
-					{/* Posts */}
-					{filteredPosts.map(post => (
-						<div
-							key={post.id}
-							className='bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition cursor-pointer'
-						>
-							<div className='flex items-start gap-3 mb-3'>
-								<div className='w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white flex-shrink-0'>
-									{post.author.charAt(0)}
+					<div className='space-y-3'>
+						{posts.map(p => (
+							<div
+								key={p.id}
+								className='rounded-xl border border-gray-200 bg-white p-4'
+							>
+								<div className='flex items-center justify-between'>
+									<p className='text-gray-900'>{p.author_name}</p>
+									<p className='text-xs text-gray-400'>
+										{new Date(p.created_at).toLocaleString()}
+									</p>
 								</div>
-								<div className='flex-1 min-w-0'>
-									<div className='flex items-center gap-2 flex-wrap'>
-										<p className='text-gray-900'>{post.author}</p>
-										<span className='text-gray-400'>•</span>
-										<span className='text-gray-500'>{post.groupId}</span>
-										<span className='text-gray-400'>•</span>
-										<span className='text-gray-500'>{post.timeAgo}</span>
-									</div>
-									<h3 className='text-gray-900 mt-1'>{post.title}</h3>
-								</div>
+								<p className='text-gray-700 mt-2 whitespace-pre-wrap'>
+									{p.body}
+								</p>
 							</div>
-
-							<p className='text-gray-600 mb-3'>{post.content}</p>
-
-							<div className='flex items-center gap-2 text-gray-500'>
-								<MessageSquare className='w-4 h-4' />
-								<span>{post.replies} replies</span>
+						))}
+						{posts.length === 0 && (
+							<div className='text-center py-12 text-gray-500'>
+								<MessageSquare className='w-12 h-12 mx-auto mb-2 text-gray-300' />
+								<p>No posts yet — start the conversation.</p>
 							</div>
-						</div>
-					))}
+						)}
+					</div>
 				</div>
 			)}
 
-			{/* Empty States */}
-			{activeTab === 'clubs' && filteredClubs.length === 0 && (
-				<div className='text-center py-12 bg-white rounded-xl border border-gray-200'>
-					<Users className='w-12 h-12 mx-auto mb-3 text-gray-300' />
-					<p className='text-gray-900'>No clubs found</p>
-					<p className='text-muted-foreground mt-1'>
-						Try a different search term
-					</p>
-				</div>
-			)}
-
-			{activeTab === 'board' && filteredPosts.length === 0 && (
-				<div className='text-center py-12 bg-white rounded-xl border border-gray-200'>
-					<MessageSquare className='w-12 h-12 mx-auto mb-3 text-gray-300' />
-					<p className='text-gray-900'>No posts found</p>
-					<p className='text-muted-foreground mt-1'>
-						Try a different search term
-					</p>
-				</div>
+			{activeTab === 'chat' && selectedClub && (
+				<ChatPanel clubId={selectedClub.id} clubName={selectedClub.name} />
 			)}
 		</div>
 	)

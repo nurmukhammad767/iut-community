@@ -19,3 +19,7 @@ alembic upgrade head 2>&1 || {
 }
 
 echo "Migration completed successfully"
+
+echo "Seeding demo data..."
+python /app/db/seed.py
+echo "Seed completed successfully"

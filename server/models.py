@@ -1,6 +1,7 @@
 import uuid
 from sqlalchemy import (
-    Column, String, Text, DateTime, Enum, ForeignKey, Index, UniqueConstraint
+    Column, String, Text, DateTime, Enum, ForeignKey, Index, Integer,
+    UniqueConstraint
 )
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
@@ -111,4 +112,84 @@ class ClubMember(Base):
 
     __table_args__ = (
         UniqueConstraint("club_id", "student_id", name="idx_unique_club_member"),
+    )
+
+
+class RoomBooking(Base):
+    __tablename__ = "room_bookings"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    room_name = Column(String(50), nullable=False)
+    student_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", deferrable=True, initially="IMMEDIATE"),
+        nullable=False,
+    )
+    day = Column(String(20), nullable=False, comment="Monday..Friday")
+    start_period = Column(Integer, nullable=False)
+    end_period = Column(Integer, nullable=False)
+    status = Column(String(20), nullable=False, default="active",
+                    comment="active | cancelled | expired")
+    booked_at = Column(DateTime, default=func.now(), nullable=False)
+
+    __table_args__ = (
+        Index("idx_room_bookings_day_room", "day", "room_name"),
+        Index("idx_room_bookings_student", "student_id"),
+    )
+
+
+class ClubPost(Base):
+    __tablename__ = "club_posts"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    club_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("clubs.id", deferrable=True, initially="IMMEDIATE"),
+        nullable=False,
+    )
+    author_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", deferrable=True, initially="IMMEDIATE"),
+        nullable=False,
+    )
+    body = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=func.now(), nullable=False)
+
+    __table_args__ = (
+        Index("idx_club_posts_club_created", "club_id", "created_at"),
+    )
+
+
+class RoomUsageDaily(Base):
+    __tablename__ = "room_usage_daily"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    day = Column(String(20), nullable=False)
+    room_name = Column(String(50), nullable=False)
+    occupied_periods = Column(Integer, nullable=False, default=0)
+    free_periods = Column(Integer, nullable=False, default=0)
+    computed_at = Column(DateTime, default=func.now(), nullable=False)
+
+    __table_args__ = (
+        UniqueConstraint("day", "room_name", "computed_at",
+                         name="idx_unique_room_usage_daily"),
+        Index("idx_room_usage_day", "day"),
+    )
+
+
+class RateLimitAudit(Base):
+    __tablename__ = "rate_limit_audit"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", deferrable=True, initially="IMMEDIATE"),
+        nullable=True,
+        comment="Null for anonymous denials",
+    )
+    endpoint = Column(String(255), nullable=False)
+    denied_at = Column(DateTime, default=func.now(), nullable=False)
+
+    __table_args__ = (
+        Index("idx_rate_limit_audit_user", "user_id", "denied_at"),
     )

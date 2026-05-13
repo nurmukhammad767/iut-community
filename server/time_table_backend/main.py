@@ -32,6 +32,16 @@ DAY_MAP = {
 }
 
 app = FastAPI(title="Timetable API")
+
+from telemetry import init_telemetry  # noqa: E402
+init_telemetry(app)
+
+
+@app.get("/healthz", tags=["Health"])
+def healthz():
+    return {"status": "ok"}
+
+
 router = APIRouter(prefix="/timetable", tags=["Timetable"], dependencies=[Depends(get_current_user)])
 
 
