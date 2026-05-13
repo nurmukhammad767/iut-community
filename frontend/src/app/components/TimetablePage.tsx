@@ -1,247 +1,218 @@
-import { BookOpen, Clock, MapPin, User, X } from 'lucide-react'
-import { useState } from 'react'
+import { BookOpen, Clock, MapPin, RotateCcw, User, X } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
-type ClassSession = {
-	id: string
-	code: string
-	name: string
-	time: string
-	room: string
-	professor: string
-	color: string
+import {
+	dropSubject,
+	fetchMySessions,
+	listMyDrops,
+	undropSubject,
+	type DropRecord,
+	type TimetableSession,
+} from '../lib/api'
+
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const
+const PERIOD_TIMES: Record<string, string> = {
+	'1': '09:30',
+	'2': '10:00',
+	'3': '10:30',
+	'4': '11:00',
+	'5': '11:30',
+	'6': '12:00',
+	'7': '12:30',
+	'8': '13:00',
+	'9': '13:30',
+}
+
+function dayMaskFor(day: string): string {
+	const idx = DAYS.indexOf(day as (typeof DAYS)[number])
+	if (idx < 0) return '00000'
+	return DAYS.map((_, i) => (i === idx ? '1' : '0')).join('')
+}
+
+function compositeKey(dayMask: string, period: string, subject: string): string {
+	return `${dayMask}|${period}|${subject}`
 }
 
 export function TimetablePage() {
-	const [viewMode, setViewMode] = useState<'daily' | 'weekly'>('weekly')
-	const [selectedClass, setSelectedClass] = useState<ClassSession | null>(null)
+	const [sessions, setSessions] = useState<TimetableSession[]>([])
+	const [drops, setDrops] = useState<DropRecord[]>([])
+	const [group, setGroup] = useState<string>('')
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
+	const [busyKey, setBusyKey] = useState<string | null>(null)
+	const [selected, setSelected] = useState<{
+		session: TimetableSession
+		day: string
+	} | null>(null)
 
-	const schedule: Record<string, ClassSession[]> = {
-		Monday: [
-			{
-				id: '1',
-				code: 'PS',
-				name: 'Professional Skills',
-				time: '09:00 - 10:30',
-				room: 'A305',
-				professor: 'Dr. Sarah Johnson',
-				color: 'bg-purple-100 text-purple-700 border-purple-200',
-			},
-			{
-				id: '2',
-				code: 'CN',
-				name: 'Computer Networks',
-				time: '11:00 - 12:30',
-				room: 'B102',
-				professor: 'Prof. Michael Chen',
-				color: 'bg-blue-100 text-blue-700 border-blue-200',
-			},
-		],
-		Tuesday: [
-			{
-				id: '3',
-				code: 'DAD',
-				name: 'Database Application & Design',
-				time: '10:00 - 11:30',
-				room: 'B209',
-				professor: 'Dr. Emily Rodriguez',
-				color: 'bg-green-100 text-green-700 border-green-200',
-			},
-			{
-				id: '4',
-				code: 'IP',
-				name: 'Internet Programming',
-				time: '14:00 - 15:30',
-				room: 'C401',
-				professor: 'Dr. James Wilson',
-				color: 'bg-orange-100 text-orange-700 border-orange-200',
-			},
-		],
-		Wednesday: [
-			{
-				id: '5',
-				code: 'IE',
-				name: 'Industrial Engineering',
-				time: '09:00 - 10:30',
-				room: 'A608',
-				professor: 'Prof. Lisa Anderson',
-				color: 'bg-pink-100 text-pink-700 border-pink-200',
-			},
-		],
-		Thursday: [
-			{
-				id: '6',
-				code: 'CN',
-				name: 'Computer Networks Lab',
-				time: '11:00 - 13:00',
-				room: 'Lab 3',
-				professor: 'Prof. Michael Chen',
-				color: 'bg-blue-100 text-blue-700 border-blue-200',
-			},
-			{
-				id: '7',
-				code: 'DAD',
-				name: 'Database Lab',
-				time: '15:00 - 16:30',
-				room: 'Lab 5',
-				professor: 'Dr. Emily Rodriguez',
-				color: 'bg-green-100 text-green-700 border-green-200',
-			},
-		],
-		Friday: [
-			{
-				id: '8',
-				code: 'IP',
-				name: 'Internet Programming',
-				time: '10:00 - 11:30',
-				room: 'C401',
-				professor: 'Dr. James Wilson',
-				color: 'bg-orange-100 text-orange-700 border-orange-200',
-			},
-		],
+	const refresh = useCallback(async () => {
+		setLoading(true)
+		setError(null)
+		try {
+			const [s, d] = await Promise.all([fetchMySessions(), listMyDrops()])
+			setSessions(s.sessions)
+			setGroup(s.group)
+			setDrops(d.drops)
+		} catch (e) {
+			setError(e instanceof Error ? e.message : 'Failed to load timetable')
+		} finally {
+			setLoading(false)
+		}
+	}, [])
+
+	useEffect(() => {
+		refresh()
+	}, [refresh])
+
+	const sessionsByDay = useMemo(() => {
+		const map: Record<string, { session: TimetableSession; dayMask: string }[]> =
+			{}
+		for (const day of DAYS) map[day] = []
+		for (const s of sessions) {
+			for (const d of s.days) {
+				if (!map[d]) continue
+				map[d].push({ session: s, dayMask: dayMaskFor(d) })
+			}
+		}
+		for (const day of DAYS) {
+			map[day].sort((a, b) =>
+				Number(a.session.period) - Number(b.session.period)
+			)
+		}
+		return map
+	}, [sessions])
+
+	const handleDrop = async (session: TimetableSession, day: string) => {
+		const dayMask = dayMaskFor(day)
+		const key = compositeKey(dayMask, session.period, session.subject)
+		setBusyKey(key)
+		try {
+			await dropSubject({
+				day_mask: dayMask,
+				period: session.period,
+				subject: session.subject,
+			})
+			await refresh()
+			setSelected(null)
+		} catch (e) {
+			setError(e instanceof Error ? e.message : 'Drop failed')
+		} finally {
+			setBusyKey(null)
+		}
 	}
 
-	const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-	const today = 'Tuesday'
+	const handleUndrop = async (drop: DropRecord) => {
+		const key = compositeKey(drop.day_mask, drop.period, drop.subject)
+		setBusyKey(key)
+		try {
+			await undropSubject({
+				day_mask: drop.day_mask,
+				period: drop.period,
+				subject: drop.subject,
+			})
+			await refresh()
+		} catch (e) {
+			setError(e instanceof Error ? e.message : 'Undo failed')
+		} finally {
+			setBusyKey(null)
+		}
+	}
 
 	return (
 		<div className='space-y-6'>
-			<div className='flex flex-col sm:flex-row sm:items-center justify-between gap-4'>
-				<div>
-					<h1 className='text-gray-900'>Timetable</h1>
-					<p className='text-muted-foreground mt-1'>Your weekly schedule</p>
-				</div>
-
-				{/* View Toggle */}
-				<div className='inline-flex bg-gray-100 rounded-lg p-1'>
-					<button
-						onClick={() => setViewMode('daily')}
-						className={`px-4 py-2 rounded-md transition ${
-							viewMode === 'daily'
-								? 'bg-white text-gray-900 shadow-sm'
-								: 'text-gray-600'
-						}`}
-					>
-						Daily View
-					</button>
-					<button
-						onClick={() => setViewMode('weekly')}
-						className={`px-4 py-2 rounded-md transition ${
-							viewMode === 'weekly'
-								? 'bg-white text-gray-900 shadow-sm'
-								: 'text-gray-600'
-						}`}
-					>
-						Weekly View
-					</button>
-				</div>
+			<div>
+				<h1 className='text-gray-900'>My Timetable</h1>
+				<p className='text-muted-foreground mt-1'>
+					{group ? `Group ${group}` : 'Your weekly schedule'}
+				</p>
 			</div>
 
-			{/* Timetable Grid */}
-			{viewMode === 'weekly' ? (
-				<div className='bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm'>
-					<div className='overflow-x-auto'>
-						<div className='min-w-[800px]'>
-							{/* Header */}
-							<div className='grid grid-cols-6 bg-gray-50 border-b border-gray-200'>
-								<div className='p-4 border-r border-gray-200'>
-									<p className='text-gray-600'>Time</p>
-								</div>
-								{days.map(day => (
-									<div
-										key={day}
-										className='p-4 border-r border-gray-200 last:border-r-0'
-									>
-										<p className='text-gray-900'>{day}</p>
-										{day === today && (
-											<span className='inline-block px-2 py-0.5 bg-blue-100 text-blue-700 rounded mt-1'>
-												Today
-											</span>
-										)}
-									</div>
-								))}
-							</div>
-
-							{/* Grid Body */}
-							<div className='grid grid-cols-6'>
-								<div className='border-r border-gray-200 bg-gray-50'>
-									{['09:00', '10:00', '11:00', '14:00', '15:00'].map(time => (
-										<div
-											key={time}
-											className='p-4 border-b border-gray-200 h-24'
-										>
-											<p className='text-gray-500'>{time}</p>
-										</div>
-									))}
-								</div>
-
-								{days.map(day => (
-									<div
-										key={day}
-										className='border-r border-gray-200 last:border-r-0'
-									>
-										<div className='p-2 space-y-2 min-h-[480px]'>
-											{schedule[day]?.map(session => (
-												<button
-													key={session.id}
-													onClick={() => setSelectedClass(session)}
-													className={`w-full p-3 rounded-lg border text-left hover:shadow-md transition ${session.color}`}
-												>
-													<p className='font-medium'>{session.code}</p>
-													<p className='mt-1 opacity-90'>{session.time}</p>
-													<p className='mt-0.5 opacity-75'>{session.room}</p>
-												</button>
-											))}
-										</div>
-									</div>
-								))}
-							</div>
-						</div>
-					</div>
-				</div>
-			) : (
-				<div className='space-y-3'>
-					{schedule[today]?.map(session => (
-						<button
-							key={session.id}
-							onClick={() => setSelectedClass(session)}
-							className={`w-full p-4 rounded-xl border text-left hover:shadow-md transition ${session.color}`}
-						>
-							<div className='flex items-start justify-between'>
-								<div>
-									<p className='text-lg'>{session.name}</p>
-									<p className='mt-1'>Code: {session.code}</p>
-								</div>
-								<span className='px-3 py-1 bg-white/50 rounded-lg'>
-									{session.time}
-								</span>
-							</div>
-							<div className='flex gap-4 mt-3'>
-								<div className='flex items-center gap-1.5'>
-									<MapPin className='w-4 h-4' />
-									<span>{session.room}</span>
-								</div>
-								<div className='flex items-center gap-1.5'>
-									<User className='w-4 h-4' />
-									<span>{session.professor}</span>
-								</div>
-							</div>
-						</button>
-					))}
-					{!schedule[today] && (
-						<div className='text-center py-12 bg-white rounded-xl border border-gray-200'>
-							<Clock className='w-12 h-12 mx-auto mb-3 text-gray-300' />
-							<p className='text-gray-900'>No classes today 🎉</p>
-							<p className='text-muted-foreground mt-1'>Enjoy your free day!</p>
-						</div>
-					)}
+			{error && (
+				<div className='p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg'>
+					{error}
 				</div>
 			)}
 
-			{/* Class Detail Modal */}
-			{selectedClass && (
+			{loading ? (
+				<div className='text-center py-12 bg-white rounded-xl border border-gray-200'>
+					<p className='text-gray-500'>Loading…</p>
+				</div>
+			) : (
+				<>
+					<div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'>
+						{DAYS.map(day => (
+							<div
+								key={day}
+								className='bg-white rounded-xl border border-gray-200 p-4'
+							>
+								<p className='text-gray-900 mb-3'>{day}</p>
+								{sessionsByDay[day].length === 0 ? (
+									<p className='text-gray-400 text-sm'>—</p>
+								) : (
+									<ul className='space-y-2'>
+										{sessionsByDay[day].map(({ session }) => (
+											<li key={`${day}-${session.period}-${session.subject}`}>
+												<button
+													onClick={() => setSelected({ session, day })}
+													className='w-full text-left p-3 rounded-lg border border-blue-200 bg-blue-50 hover:bg-blue-100 transition'
+												>
+													<p className='text-blue-900'>{session.subject}</p>
+													<p className='text-xs text-blue-700 mt-0.5'>
+														Period {session.period} ·{' '}
+														{PERIOD_TIMES[session.period] ?? '--:--'}
+													</p>
+													{session.rooms?.length > 0 && (
+														<p className='text-xs text-blue-700'>
+															Room {session.rooms.join(', ')}
+														</p>
+													)}
+												</button>
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						))}
+					</div>
+
+					{drops.length > 0 && (
+						<div className='bg-white rounded-xl border border-gray-200 p-4'>
+							<p className='text-gray-900 mb-3'>Dropped subjects</p>
+							<ul className='space-y-2'>
+								{drops.map(d => {
+									const key = compositeKey(d.day_mask, d.period, d.subject)
+									return (
+										<li
+											key={key}
+											className='flex items-center justify-between gap-2 p-3 bg-gray-50 rounded-lg'
+										>
+											<div>
+												<p className='text-gray-900'>{d.subject}</p>
+												<p className='text-xs text-gray-500'>
+													Period {d.period} · mask {d.day_mask}
+												</p>
+											</div>
+											<button
+												onClick={() => handleUndrop(d)}
+												disabled={busyKey === key}
+												className='inline-flex items-center gap-1 px-3 py-1.5 text-sm text-blue-700 hover:bg-blue-50 rounded'
+											>
+												<RotateCcw className='w-4 h-4' />
+												Restore
+											</button>
+										</li>
+									)
+								})}
+							</ul>
+						</div>
+					)}
+				</>
+			)}
+
+			{selected && (
 				<div
 					className='fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50'
-					onClick={() => setSelectedClass(null)}
+					onClick={() => setSelected(null)}
 				>
 					<div
 						className='bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl'
@@ -249,58 +220,79 @@ export function TimetablePage() {
 					>
 						<div className='flex items-start justify-between mb-4'>
 							<div>
-								<p className='text-gray-600'>Course Details</p>
-								<h2 className='text-gray-900 mt-1'>{selectedClass.name}</h2>
+								<p className='text-gray-600'>{selected.day}</p>
+								<h2 className='text-gray-900 mt-1'>
+									{selected.session.subject}
+								</h2>
 							</div>
 							<button
-								onClick={() => setSelectedClass(null)}
+								onClick={() => setSelected(null)}
 								className='text-gray-400 hover:text-gray-600 p-1'
 							>
 								<X className='w-5 h-5' />
 							</button>
 						</div>
 
-						<div className='space-y-4'>
-							<div className='flex items-center gap-3 p-3 bg-gray-50 rounded-lg'>
-								<BookOpen className='w-5 h-5 text-blue-600' />
-								<div>
-									<p className='text-gray-500'>Course Code</p>
-									<p className='text-gray-900'>{selectedClass.code}</p>
-								</div>
-							</div>
-
+						<div className='space-y-3'>
 							<div className='flex items-center gap-3 p-3 bg-gray-50 rounded-lg'>
 								<Clock className='w-5 h-5 text-blue-600' />
 								<div>
-									<p className='text-gray-500'>Time</p>
-									<p className='text-gray-900'>{selectedClass.time}</p>
+									<p className='text-gray-500'>Period</p>
+									<p className='text-gray-900'>
+										{selected.session.period} ·{' '}
+										{PERIOD_TIMES[selected.session.period] ?? '--:--'}
+									</p>
 								</div>
 							</div>
+
+							{selected.session.rooms?.length > 0 && (
+								<div className='flex items-center gap-3 p-3 bg-gray-50 rounded-lg'>
+									<MapPin className='w-5 h-5 text-blue-600' />
+									<div>
+										<p className='text-gray-500'>Room</p>
+										<p className='text-gray-900'>
+											{selected.session.rooms.join(', ')}
+										</p>
+									</div>
+								</div>
+							)}
+
+							{selected.session.professors?.length > 0 && (
+								<div className='flex items-center gap-3 p-3 bg-gray-50 rounded-lg'>
+									<User className='w-5 h-5 text-blue-600' />
+									<div>
+										<p className='text-gray-500'>Professor</p>
+										<p className='text-gray-900'>
+											{selected.session.professors.join(', ')}
+										</p>
+									</div>
+								</div>
+							)}
 
 							<div className='flex items-center gap-3 p-3 bg-gray-50 rounded-lg'>
-								<MapPin className='w-5 h-5 text-blue-600' />
+								<BookOpen className='w-5 h-5 text-blue-600' />
 								<div>
-									<p className='text-gray-500'>Room</p>
-									<p className='text-gray-900'>{selectedClass.room}</p>
+									<p className='text-gray-500'>Groups</p>
+									<p className='text-gray-900'>
+										{selected.session.groups.join(', ')}
+									</p>
 								</div>
 							</div>
 
-							<div className='flex items-center gap-3 p-3 bg-gray-50 rounded-lg'>
-								<User className='w-5 h-5 text-blue-600' />
-								<div>
-									<p className='text-gray-500'>Professor</p>
-									<p className='text-gray-900'>{selectedClass.professor}</p>
-								</div>
-							</div>
-
-							<div className='flex gap-2 pt-2'>
-								<button className='flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition'>
-									View Syllabus
-								</button>
-								<button className='flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition'>
-									Materials
-								</button>
-							</div>
+							<button
+								onClick={() => handleDrop(selected.session, selected.day)}
+								disabled={
+									busyKey ===
+									compositeKey(
+										dayMaskFor(selected.day),
+										selected.session.period,
+										selected.session.subject
+									)
+								}
+								className='w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-60 transition'
+							>
+								Drop this subject
+							</button>
 						</div>
 					</div>
 				</div>

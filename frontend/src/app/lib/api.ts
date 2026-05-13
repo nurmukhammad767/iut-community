@@ -193,11 +193,101 @@ export async function createBooking(payload: {
 	})
 }
 
+// ---------- My timetable + drops ----------
+
+export type TimetableSession = {
+	period: string
+	subject: string
+	professors: string[]
+	groups: string[]
+	rooms: string[]
+	days: string[]
+}
+
+export type MySessionsResponse = {
+	group: string
+	total_sessions: number
+	dropped_count: number
+	sessions: TimetableSession[]
+}
+
+export type DropPayload = {
+	day_mask: string
+	period: string
+	subject: string
+}
+
+export type DropRecord = DropPayload & {
+	student_id: string
+	student_identifier: string
+	full_name: string
+	group: string
+	role: string
+	dropped_at: string
+}
+
+export async function fetchMySessions(): Promise<MySessionsResponse> {
+	return request('/timetable/my/sessions')
+}
+
+export async function listMyDrops(): Promise<{ total: number; drops: DropRecord[] }> {
+	return request('/timetable/my/drops')
+}
+
+export async function dropSubject(payload: DropPayload): Promise<{ message: string; drop: DropRecord }> {
+	return request('/timetable/my/drops', {
+		method: 'POST',
+		body: JSON.stringify(payload),
+	})
+}
+
+export async function undropSubject(payload: DropPayload): Promise<void> {
+	await request('/timetable/my/drops', {
+		method: 'DELETE',
+		body: JSON.stringify(payload),
+	})
+}
+
+// ---------- Notifications ----------
+
+export type Notification = {
+	id: string
+	type: string
+	subject: string
+	period: string
+	start_time: string
+	rooms: string[]
+	professors: string[]
+	minutes_until: number
+	created_at: string
+}
+
+export async function listNotifications(): Promise<{ total: number; notifications: Notification[] }> {
+	return request('/notifications')
+}
+
+export async function ackNotification(notificationId: string): Promise<void> {
+	await request(`/notifications/ack/${notificationId}`, { method: 'POST' })
+}
+
+export async function clearNotifications(): Promise<void> {
+	await request('/notifications', { method: 'DELETE' })
+}
+
 // ---------- WebSocket chat ----------
 
 export function openChatSocket(clubId: string): WebSocket {
 	const token = getToken() ?? ''
 	return new WebSocket(
 		`${WS_BASE_URL}/ws/chat/${clubId}?token=${encodeURIComponent(token)}`
+	)
+}
+
+// ---------- WebSocket notifications (live push) ----------
+
+export function openNotificationsSocket(): WebSocket {
+	const token = getToken() ?? ''
+	return new WebSocket(
+		`${WS_BASE_URL}/ws/notifications?token=${encodeURIComponent(token)}`
 	)
 }

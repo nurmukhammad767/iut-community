@@ -1,14 +1,27 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pymongo import MongoClient
-from jose import jwt, JWTError
+import json
 import os
+import uuid
+from datetime import datetime, timezone
+from typing import List, Optional
+
+import redis
 from dotenv import load_dotenv
+from fastapi import APIRouter, Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jose import JWTError, jwt
+from pydantic import BaseModel, Field
+from pymongo import MongoClient
 
 load_dotenv()
 
 client = MongoClient(f"mongodb://{os.getenv('MONGO_HOST')}:{os.getenv('MONGO_PORT', '27017')}")
 db = client[os.getenv('MONGO_DB')]
+
+_redis = redis.Redis.from_url(
+    os.getenv("REDIS_URL", "redis://redis:6379/1"),
+    decode_responses=True,
+)
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
@@ -32,6 +45,13 @@ DAY_MAP = {
 }
 
 app = FastAPI(title="Timetable API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 from telemetry import init_telemetry  # noqa: E402
 init_telemetry(app)
@@ -175,3 +195,185 @@ def get_occupied_rooms(day: str, room_name: str = None, period: int = None):
 
 
 app.include_router(router)
+
+
+# ---------------------------------------------------------------------------
+# My timetable (group sessions minus dropped subjects) + drop/undrop
+# ---------------------------------------------------------------------------
+
+class DropRequest(BaseModel):
+    day_mask: str = Field(min_length=5, max_length=5,
+                          pattern=r"^[01]{5}$",
+                          description="5-bit mask for Mon..Fri, e.g. '10100'")
+    period: str = Field(min_length=1, max_length=2)
+    subject: str = Field(min_length=1, max_length=200)
+
+
+my_router = APIRouter(prefix="/timetable/my", tags=["My Timetable"])
+
+
+def _composite_key(day_mask: str, period: str, subject: str) -> str:
+    return f"{day_mask}|{period}|{subject}"
+
+
+@my_router.get("/sessions")
+def get_my_sessions(current_user: dict = Depends(get_current_user)):
+    """Sessions for the caller's group, minus their dropped subjects."""
+    group = current_user.get("group")
+    student_id = current_user.get("sub")
+    if not group:
+        raise HTTPException(status_code=400, detail="Token missing group claim")
+
+    sessions = list(
+        db["timetable_with_groups"].find({"groups": group}, {"_id": 0})
+    )
+    dropped = {
+        _composite_key(d["day_mask"], d["period"], d["subject"])
+        for d in db["dropped_subjects"].find(
+            {"student_id": student_id},
+            {"_id": 0, "day_mask": 1, "period": 1, "subject": 1},
+        )
+    }
+
+    visible = []
+    for s in sessions:
+        key = _composite_key(
+            s.get("day_mask", ""), s.get("period", ""), s.get("subject", "")
+        )
+        if key in dropped:
+            continue
+        s["days"] = [
+            DAY_MAP[str(i + 1)]
+            for i, bit in enumerate(s.pop("day_mask", ""))
+            if bit == "1"
+        ]
+        visible.append(s)
+
+    return {
+        "group": group,
+        "total_sessions": len(visible),
+        "dropped_count": len(dropped),
+        "sessions": visible,
+    }
+
+
+@my_router.post("/drops", status_code=201)
+def drop_subject(
+    payload: DropRequest,
+    current_user: dict = Depends(get_current_user),
+):
+    student_id = current_user.get("sub")
+    group = current_user.get("group")
+
+    # Validate session exists and includes the caller's group
+    exists = db["timetable_with_groups"].find_one({
+        "day_mask": payload.day_mask,
+        "period": payload.period,
+        "subject": payload.subject,
+        "groups": group,
+    })
+    if not exists:
+        raise HTTPException(
+            status_code=404,
+            detail="Session not found for your group",
+        )
+
+    doc = {
+        "_id": f"{student_id}|{_composite_key(payload.day_mask, payload.period, payload.subject)}",
+        "student_id": student_id,
+        "student_identifier": current_user.get("student_id"),
+        "full_name": current_user.get("full_name"),
+        "group": group,
+        "role": current_user.get("role"),
+        "day_mask": payload.day_mask,
+        "period": payload.period,
+        "subject": payload.subject,
+        "dropped_at": datetime.now(tz=timezone.utc),
+    }
+    try:
+        db["dropped_subjects"].insert_one(doc)
+    except Exception:
+        # Duplicate _id => already dropped; treat as idempotent
+        existing = db["dropped_subjects"].find_one({"_id": doc["_id"]}, {"_id": 0})
+        if existing:
+            return {"message": "Already dropped", "drop": existing}
+        raise
+    doc.pop("_id", None)
+    return {"message": "Subject dropped", "drop": doc}
+
+
+@my_router.get("/drops")
+def list_my_drops(current_user: dict = Depends(get_current_user)):
+    student_id = current_user.get("sub")
+    rows = list(
+        db["dropped_subjects"].find(
+            {"student_id": student_id},
+            {"_id": 0},
+        )
+    )
+    return {"total": len(rows), "drops": rows}
+
+
+@my_router.delete("/drops", status_code=204)
+def undrop_subject(
+    payload: DropRequest,
+    current_user: dict = Depends(get_current_user),
+):
+    student_id = current_user.get("sub")
+    res = db["dropped_subjects"].delete_one({
+        "_id": f"{student_id}|{_composite_key(payload.day_mask, payload.period, payload.subject)}"
+    })
+    if res.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Drop not found")
+
+
+app.include_router(my_router)
+
+
+# ---------------------------------------------------------------------------
+# Notifications (Redis-backed; populated by Celery reminders)
+# ---------------------------------------------------------------------------
+
+notif_router = APIRouter(prefix="/notifications", tags=["Notifications"])
+
+
+@notif_router.get("")
+def list_notifications(current_user: dict = Depends(get_current_user)):
+    student_id = current_user.get("sub")
+    raw = _redis.lrange(f"notif:list:{student_id}", 0, -1)
+    items = []
+    for entry in raw:
+        try:
+            items.append(json.loads(entry))
+        except json.JSONDecodeError:
+            continue
+    return {"total": len(items), "notifications": items}
+
+
+@notif_router.post("/ack/{notification_id}", status_code=204)
+def ack_notification(
+    notification_id: str,
+    current_user: dict = Depends(get_current_user),
+):
+    """Remove one notification by id from the user's queue."""
+    student_id = current_user.get("sub")
+    key = f"notif:list:{student_id}"
+    raw = _redis.lrange(key, 0, -1)
+    for entry in raw:
+        try:
+            doc = json.loads(entry)
+        except json.JSONDecodeError:
+            continue
+        if doc.get("id") == notification_id:
+            _redis.lrem(key, 1, entry)
+            return
+    raise HTTPException(status_code=404, detail="Notification not found")
+
+
+@notif_router.delete("", status_code=204)
+def clear_notifications(current_user: dict = Depends(get_current_user)):
+    student_id = current_user.get("sub")
+    _redis.delete(f"notif:list:{student_id}")
+
+
+app.include_router(notif_router)

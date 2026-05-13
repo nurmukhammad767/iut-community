@@ -13,11 +13,15 @@ import {
 import { useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router'
 
+import { clearAuth, getCurrentUser } from '../lib/api'
+import { NotificationsBell } from './NotificationsBell'
+
 export function DashboardLayout() {
 	const navigate = useNavigate()
 	const location = useLocation()
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 	const [communityExpanded, setCommunityExpanded] = useState(false)
+	const user = getCurrentUser()
 
 	const navItems = [
 		{ path: '/dashboard', label: 'Overview', icon: Home },
@@ -26,6 +30,7 @@ export function DashboardLayout() {
 	]
 
 	const handleLogout = () => {
+		clearAuth()
 		navigate('/')
 	}
 
@@ -141,8 +146,11 @@ export function DashboardLayout() {
 					{/* User Profile & Actions */}
 					<div className='border-t border-gray-200 p-4 space-y-2'>
 						<div className='px-4 py-3 bg-gray-50 rounded-lg'>
-							<p className='text-gray-900'>John Anderson</p>
-							<p className='text-gray-500 mt-0.5'>ICE-23-03</p>
+							<p className='text-gray-900'>{user?.full_name ?? 'Guest'}</p>
+							<p className='text-gray-500 mt-0.5'>
+								{user?.group ?? '—'}
+								{user?.role ? ` · ${user.role}` : ''}
+							</p>
 						</div>
 						<button className='w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition'>
 							<Settings className='w-5 h-5' />
@@ -161,20 +169,23 @@ export function DashboardLayout() {
 
 			{/* Main Content */}
 			<main className='flex-1 overflow-auto'>
-				{/* Mobile Header */}
-				<div className='lg:hidden bg-white border-b border-gray-200 p-4 flex items-center gap-3'>
-					<button
-						onClick={() => setMobileMenuOpen(true)}
-						className='text-gray-700'
-					>
-						<Menu className='w-6 h-6' />
-					</button>
-					<div className='flex items-center gap-2'>
-						<div className='w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center'>
-							<GraduationCap className='w-5 h-5 text-white' />
+				{/* Top header (notifications + mobile menu trigger) */}
+				<div className='bg-white border-b border-gray-200 p-4 flex items-center gap-3 justify-between'>
+					<div className='flex items-center gap-3'>
+						<button
+							onClick={() => setMobileMenuOpen(true)}
+							className='text-gray-700 lg:hidden'
+						>
+							<Menu className='w-6 h-6' />
+						</button>
+						<div className='flex items-center gap-2 lg:hidden'>
+							<div className='w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center'>
+								<GraduationCap className='w-5 h-5 text-white' />
+							</div>
+							<span className='text-gray-900'>Portal</span>
 						</div>
-						<span className='text-gray-900'>Portal</span>
 					</div>
+					<NotificationsBell />
 				</div>
 
 				<div className='p-6 lg:p-8'>

@@ -9,6 +9,7 @@ from graphql_api.router import router as graphql_router
 from routers import bookings, clubs, dashboard, posts
 from telemetry import init_telemetry
 from ws import chat as ws_chat
+from ws import notifications as ws_notifications
 
 app = FastAPI(title="IUT Community API")
 app.add_middleware(
@@ -27,6 +28,7 @@ app.include_router(posts.router)
 app.include_router(bookings.router)
 app.include_router(dashboard.router)
 app.include_router(ws_chat.router)
+app.include_router(ws_notifications.router)
 app.include_router(graphql_router)
 
 @app.post("/register", status_code=201, tags=["Auth"])
@@ -62,6 +64,7 @@ def login(data: Login, db: Session = Depends(get_connection)):
         "student_id": user.student_identifier,
         "full_name": user.full_name,
         "group": user.group,
+        "role": user.role.value if hasattr(user.role, "value") else str(user.role),
     })
     return TokenResponse(
         token_type="bearer",
