@@ -40,8 +40,12 @@ _PG_URL = os.getenv(
     f"/{os.getenv('DB_NAME')}",
 )
 
+# A lesson is "upcoming" if it starts within this window and hasn't started
+# yet. We notify on the FIRST scan where the lesson falls inside the window;
+# the per-student dedup key (SET NX) guarantees exactly one reminder even
+# though the lesson stays inside the window for ~15 scans. This is resilient
+# to missed beat ticks / worker restarts (a fixed-instant band is not).
 _REMINDER_WINDOW = timedelta(minutes=15)
-_REMINDER_TOLERANCE = timedelta(seconds=30)  # +/- around the 15-min mark
 
 _mongo = MongoClient(f"mongodb://{_MONGO_HOST}:{_MONGO_PORT}")
 _mongo_db = _mongo[_MONGO_DB] if _MONGO_DB else None
@@ -110,10 +114,6 @@ def scan_upcoming_lessons() -> dict:
     if weekday > 4:
         return {"scanned": 0, "notified": 0, "reason": "weekend"}
 
-    target = now + _REMINDER_WINDOW
-    lower = target - _REMINDER_TOLERANCE
-    upper = target + _REMINDER_TOLERANCE
-
     sessions = list(_mongo_db["timetable_with_groups"].find({}, {"_id": 0}))
     scanned = 0
     notified = 0
@@ -124,8 +124,11 @@ def scan_upcoming_lessons() -> dict:
         start_dt = lesson_today_at(s.get("period", ""), now)
         if start_dt is None:
             continue
-        if not (lower <= start_dt <= upper):
+        delta = start_dt - now
+        # upcoming = starts within the window and hasn't started yet
+        if not (timedelta(0) < delta <= _REMINDER_WINDOW):
             continue
+        minutes_until = max(1, int(delta.total_seconds() // 60))
 
         scanned += 1
         groups = s.get("groups", [])
@@ -157,7 +160,7 @@ def scan_upcoming_lessons() -> dict:
                 "start_time": start_dt.isoformat(),
                 "rooms": s.get("rooms", []),
                 "professors": s.get("professors", []),
-                "minutes_until": int(_REMINDER_WINDOW.total_seconds() // 60),
+                "minutes_until": minutes_until,
                 "created_at": now.isoformat(),
             }
             _emit_notification(st["id"], payload)
