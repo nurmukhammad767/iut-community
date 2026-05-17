@@ -205,54 +205,10 @@ server/
 
 ### 4.3 `docker-compose.yaml` as a dependency graph
 
-```
-                                       ┌──────────────┐
-                                       │ airflow-     │
-                                       │ postgres     │
-                                       └──────┬───────┘
-                                              │ healthy
-                                              ▼
-                                       ┌──────────────┐
-                                       │ airflow-init │  (one-shot)
-                                       └──────┬───────┘
-                                              │ completed
-                ┌───────────────┬─────────────┼─────────────┐
-                ▼               ▼             ▼             ▼
-        ┌─────────────┐ ┌─────────────┐ ┌──────────┐ ┌────────────┐
-        │ airflow-    │ │ airflow-    │ │ airflow- │ │ airflow-   │
-        │ apiserver   │ │ scheduler   │ │ triggerer│ │ dag-       │
-        └─────────────┘ └─────────────┘ └──────────┘ │ processor  │
-                                                     └────────────┘
-
-  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
-  │ backend- │  │ mongodb  │  │  redis   │  │ rabbitmq │
-  │ postgres │  │          │  │          │  │          │
-  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘
-       │ healthy     │ healthy     │ healthy     │ healthy
-       ▼             ▼             ▼             ▼
-  ┌─────────────────────────────────────────────────────┐
-  │ migration (one-shot Alembic upgrade head + seed)    │
-  └────────────────────┬────────────────────────────────┘
-                       │ completed_successfully
-        ┌──────────────┼──────────────┬────────────────┐
-        ▼              ▼              ▼                ▼
-  ┌──────────┐  ┌──────────┐  ┌──────────┐    ┌──────────────┐
-  │backend-1 │  │backend-2 │  │ timetable│    │ celery-worker│
-  └─────┬────┘  └────┬─────┘  └────┬─────┘    └──────┬───────┘
-        │            │             │                 │
-        └────────────┴──────┬──────┘                 ▼
-                            ▼                  ┌──────────────┐
-                      ┌──────────┐             │ celery-beat  │
-                      │ gateway  │             └──────────────┘
-                      │ :8088    │
-                      └──────────┘  (sole public port)
-
-  ┌────────────────────────────────────────────────────────────┐
-  │ observability (Grafana LGTM, included via                  │
-  │   `include: observability/docker-compose.yaml`)            │
-  │ Receives OTLP from backend-1, backend-2, timetable.        │
-  └────────────────────────────────────────────────────────────┘
-```
+<figure>
+  <img src="images/docker_compose_dependency.png" alt="docker-compose service dependency graph" class="diagram">
+  <figcaption>Figure 5 - <code>docker-compose.yaml</code> interpreted as a dependency graph. Airflow stack (top): <code>airflow-postgres</code> -&gt; <code>airflow-init</code> (one-shot) -&gt; <code>airflow-apiserver/scheduler/triggerer</code>. Data layer (left): <code>backend-postgres</code>, <code>mongodb</code>, <code>redis</code>, <code>rabbitmq</code> are gated by <code>healthy</code> checks before <code>migration</code> (one-shot Alembic upgrade + seed) runs; only on its <code>completed</code> exit do the application services (<code>backend-1</code>, <code>backend-2</code>, <code>timetable</code>, <code>celery-worker</code>) start, followed by edge services (<code>gateway</code> :8088, <code>celery-beat</code>). Observability (Grafana LGTM) receives OTLP from all FastAPI services.</figcaption>
+</figure>
 
 Health checks on `backend-postgres`, `mongodb`, `redis`, `rabbitmq`,
 `airflow-postgres`, both `backend-*` replicas, and `gateway` make the

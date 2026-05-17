@@ -24,8 +24,9 @@ import markdown
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MD_PATH = REPO_ROOT / "docs" / "report.md"
-HTML_PATH = REPO_ROOT / "submission" / "report.html"
-PDF_PATH = REPO_ROOT / "submission" / "report.pdf"
+SUBMISSION_DIR = REPO_ROOT / "hw submission"
+HTML_PATH = SUBMISSION_DIR / "report.html"
+PDF_PATH = SUBMISSION_DIR / "report.pdf"
 
 
 CSS = """
