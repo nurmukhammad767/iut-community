@@ -11,8 +11,10 @@ Usage:
 """
 from __future__ import annotations
 
+import base64
 import html
 import os
+import re
 import subprocess
 import sys
 import urllib.parse
@@ -140,7 +142,68 @@ h1:first-of-type + h3 {
     margin-top: 0;
     border: 0;
 }
+
+/* Diagram images — centered, fit-width, keep on one page */
+figure {
+    margin: 0.6em 0 0.4em 0;
+    text-align: center;
+    page-break-inside: avoid;
+}
+
+figure img, p > img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #d8e0ec;
+    border-radius: 4px;
+}
+
+figcaption {
+    font-size: 0.85em;
+    color: #44546a;
+    margin-top: 0.25em;
+    font-style: italic;
+}
+
+img.diagram {
+    max-width: 100%;
+    max-height: 16cm;
+    object-fit: contain;
+    display: block;
+    margin: 0.4em auto;
+    border: 1px solid #d8e0ec;
+    border-radius: 4px;
+}
 """
+
+
+_MIME = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".gif": "image/gif",
+    ".svg": "image/svg+xml",
+    ".webp": "image/webp",
+}
+
+
+def inline_images(html_body: str, md_dir: Path) -> str:
+    """Rewrite <img src="…"> tags to data: URLs so the rendered HTML is self-contained."""
+    pattern = re.compile(r'(<img\b[^>]*?\bsrc=")([^"]+)("[^>]*>)', re.IGNORECASE)
+
+    def repl(m: re.Match[str]) -> str:
+        prefix, src, suffix = m.group(1), m.group(2), m.group(3)
+        if src.startswith(("http://", "https://", "data:")):
+            return m.group(0)
+        # resolve relative to the markdown file's directory
+        candidate = (md_dir / src).resolve()
+        if not candidate.exists():
+            print(f"WARN: image not found, leaving src as-is: {src}", file=sys.stderr)
+            return m.group(0)
+        mime = _MIME.get(candidate.suffix.lower(), "application/octet-stream")
+        b64 = base64.b64encode(candidate.read_bytes()).decode("ascii")
+        return f'{prefix}data:{mime};base64,{b64}{suffix}'
+
+    return pattern.sub(repl, html_body)
 
 
 def main() -> int:
@@ -157,6 +220,7 @@ def main() -> int:
         extensions=["tables", "fenced_code", "toc", "attr_list", "sane_lists"],
         output_format="html5",
     )
+    html_body = inline_images(html_body, MD_PATH.parent)
 
     html_doc = f"""<!DOCTYPE html>
 <html lang="en">

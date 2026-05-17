@@ -133,71 +133,10 @@ already keyed by `(group, day_mask, period)`.
 
 ### 3.2 ER diagram (hand-designed, not ORM-generated)
 
-```
-                +---------------------+
-                |       USERS         |
-                |---------------------|
-                | PK id (UUID)        |
-                | student_identifier  |UQ
-                | password_hash       |
-                | full_name           |
-                | group               |
-                | role (enum)         |
-                | created_at          |
-                +----------+----------+
-                           |
-       +-------------------+--------------+-----------------+
-       |                   |              |                 |
-       |1..N               |1..N          |1..N             |1..N
-       v                   v              v                 v
-+--------------+   +--------------+  +-----------------+ +----------------+
-| COURSE_      |   | CLUB_MEMBERS |  | CLUB_POSTS      | | RATE_LIMIT_    |
-| ENROLLMENTS  |   |--------------|  |-----------------| | AUDIT          |
-|--------------|   | club_id  FK  |  | club_id    FK   | |----------------|
-| student_id FK|   | student_idFK |  | author_id  FK   | | user_id    FK  |
-| course_id FK |   | joined_at    |  | body            | | endpoint       |
-+------+-------+   +------+-------+  | created_at      | | denied_at      |
-       |                  |          +--------+--------+ +----------------+
-       |M..1              |M..1               |M..1
-       v                  v                   v
-+--------------+   +--------------+   +--------------+
-|   COURSES    |   |   CLUBS      |   |   CLUBS      |
-|--------------|   |--------------|   | (same)       |
-| PK id        |   | PK id        |   +--------------+
-| code (UQ)    |   | name (UQ)    |
-| name         |   | description  |
-+------+-------+   | image_url    |
-       |1..N       | created_by FK|
-       v           +--------------+
-+--------------+
-|  ASSIGNMENTS |
-|--------------|
-| course_id FK |
-| title        |
-| due_date     | (idx)
-| status       |
-+--------------+
-
-       +-------------------+    +----------------------+
-       | ROOM_USAGE_DAILY  |    | TIMETABLE  (Mongo)   |
-       |-------------------|    |----------------------|
-       | day               |idx | { _id, group_name,   |
-       | room_name         |    |   day_mask, period,  |
-       | occupied_periods  |    |   subject, room,     |
-       | free_periods      |    |   teacher, ... }     |
-       | computed_at       |    +----------------------+
-       +-------------------+
-        (written by Airflow nightly_analytics DAG)
-
-       +---------------------+   +----------------------+
-       |  ROOM_BOOKINGS      |   |  CHAT_MESSAGES       |
-       |  (Mongo)            |   |  (Mongo)             |
-       |---------------------|   |----------------------|
-       | { _id, user_id,     |   | { _id, club_id,      |
-       |   room, day, period,|   |   user_id, full_name,|
-       |   status, booked_at}|   |   text, ts }         |
-       +---------------------+   +----------------------+
-```
+<figure>
+  <img src="images/er_diagram.png" alt="Hand-designed ER diagram of the core relational schema" class="diagram">
+  <figcaption>Figure 0 — Hand-designed ER diagram of the core relational entities (<code>users</code>, <code>courses</code>, <code>course_enrollments</code>, <code>assignments</code>, <code>clubs</code>, <code>club_members</code>) with primary keys, foreign-key edges, types, and NOT-NULL annotations. The auxiliary Postgres tables (<code>club_posts</code>, <code>room_usage_daily</code>, <code>rate_limit_audit</code>) and the MongoDB collections (<code>timetable_with_groups</code>, <code>chat_messages</code>, <code>room_bookings</code>) are catalogued in §3.3. SQL DDL is in <code>Diagrams&amp;Scripts/ER_diagram.sql</code>.</figcaption>
+</figure>
 
 ### 3.3 Table inventory
 
@@ -232,53 +171,10 @@ the corresponding migrations live in
 
 ### 4.1 Services and responsibilities
 
-```
-                          ┌──────────────────────────────────┐
-                  client  │  Nginx Gateway  (port 8088)      │
-                  ─────►  │  • TLS termination point         │
-                          │  • upstream auth_backend (LB)    │
-                          │  • upstream timetable_backend    │
-                          │  • map $http_upgrade → WS path   │
-                          └──┬──────────┬──────────────────┬─┘
-                             │          │                  │
-              least_conn ────┘          │                  │
-                             ▼          ▼                  ▼
-                       ┌─────────┐ ┌─────────┐      ┌──────────────┐
-                       │backend-1│ │backend-2│      │  timetable   │
-                       │ FastAPI │ │ FastAPI │      │  FastAPI     │
-                       │ :8000   │ │ :8000   │      │  :8001       │
-                       └──┬───┬──┘ └──┬───┬──┘      └──┬───┬──┬────┘
-                          │   │       │   │            │   │  │
-                          ▼   ▼       ▼   ▼            ▼   ▼  ▼
-                       ┌────────┐  ┌────────┐    ┌────────┐ ┌────────┐
-                       │Postgres│  │ Redis  │    │ Mongo  │ │ Redis  │
-                       │(users, │  │(R11    │    │(time-  │ │(noti-  │
-                       │ clubs, │  │ bucket,│    │ table, │ │ fy q)  │
-                       │ posts) │  │ cache, │    │ chat,  │ └────────┘
-                       └────────┘  │ chat   │    │ bookings)
-                                   │ backlog│    └────────┘
-                                   └────────┘
-
-         ┌───────────────────┐          ┌─────────────────────┐
-         │ Airflow (LocalExec)│  ──►   │ Postgres `room_     │
-         │ • iut_data_extract │         │ usage_daily`        │
-         │ • nightly_analytics│         └─────────────────────┘
-         └───────────────────┘
-
-         ┌──────────────────┐  ┌─────────────────┐  ┌────────────────────┐
-         │ RabbitMQ broker  │──│ Celery worker   │──│ Redis notify queue │
-         │ amqp://5672      │  │ (lesson reminder│  │ Frontend GET       │
-         │ Celery beat tick │  │  task, 1 / min) │  │ /notifications     │
-         └──────────────────┘  └─────────────────┘  └────────────────────┘
-
-         ┌──────────────────────────────────────────────┐
-         │  Grafana LGTM (single all-in-one container)  │
-         │  Tempo (4317/4318 OTLP) · Loki · Prometheus  │
-         │  Grafana UI :3000                            │
-         │  Receives traces, logs, metrics from BOTH    │
-         │  FastAPI services via OpenTelemetry SDK.     │
-         └──────────────────────────────────────────────┘
-```
+<figure>
+  <img src="images/system_architecture.png" alt="System architecture and client traffic path" class="diagram">
+  <figcaption>Figure 1 — System architecture &amp; client traffic path. Client → Nginx gateway → 2× FastAPI backend replicas (least_conn) + Timetable service; data tier (Postgres, MongoDB, Redis); workers (Airflow, RabbitMQ, Celery); observability via Grafana LGTM.</figcaption>
+</figure>
 
 ### 4.2 Project structure
 
@@ -582,87 +478,26 @@ lesson-reminder use case (UC-6).
 
 ### 7.2 BPMN — `nightly_analytics` DAG
 
-```
-                                                ┌────────────────┐
-        ┌───────────────────────────────────┐   │ Postgres       │
-   ●────│ aggregate_room_usage              │──►│ room_usage_daily│
-        │  • read Mongo occupied_rooms      │   │ (UPSERT)        │
-        │  • bit-mask -> day -> count       │   └────────────────┘
-        │  • derive occupied/free periods   │
-        └─────────────────┬─────────────────┘
-                          │
-                          ▼
-        ┌───────────────────────────────────┐
-        │ expire_assignments                │
-        │  UPDATE assignments               │
-        │  SET status='expired'             │
-        │  WHERE due_date < now()           │
-        └─────────────────┬─────────────────┘
-                          │
-                          ▼
-        ┌───────────────────────────────────┐
-        │ clear_stale_bookings              │
-        │  UPDATE room_bookings             │
-        │  SET status='expired'             │
-        │  WHERE booked_at < now() - 7d     │
-        └─────────────────┬─────────────────┘
-                          ▼
-                          ◉ (end)
-```
+<figure>
+  <img src="images/bpmn_nightly_analytics.png" alt="BPMN diagram of the nightly_analytics DAG" class="diagram">
+  <figcaption>Figure 2 — BPMN: <code>aggregate_room_usage</code> (reads Mongo, UPSERTs Postgres <code>room_usage_daily</code>) → <code>expire_assignments</code> → <code>clear_stale_bookings</code>.</figcaption>
+</figure>
 
 Source: [`server/timetable_web_scraping/dags/nightly_analytics.py`](../server/timetable_web_scraping/dags/nightly_analytics.py).
 
 ### 7.3 BPMN — `iut_data_extractor` DAG (3-way parallel scrape)
 
-```
-                              ┌──────────────────────┐
-                              │ extract_timetable_   │
-                          ┌──►│ for_groups           │──┐
-                          │   └──────────────────────┘  │
-   ●─────[+]──────────────┤                              │
-              fork        │   ┌──────────────────────┐  │
-                          ├──►│ extract_available_   │──┤────[+]───◉
-                          │   │ rooms                │  │   join    end
-                          │   └──────────────────────┘  │
-                          │   ┌──────────────────────┐  │
-                          └──►│ extract_occupied_    │──┘
-                              │ rooms                │
-                              └──────────────────────┘
-                                  (each task writes to Mongo)
-```
+<figure>
+  <img src="images/bpmn_iut_data_extractor.png" alt="BPMN diagram of the iut_data_extractor DAG with 3-way parallel scrape" class="diagram">
+  <figcaption>Figure 3 — BPMN: parallel gateway forks into <code>extract_timetable_for_groups</code>, <code>extract_available_rooms</code>, <code>extract_occupied_rooms</code>; each task writes to MongoDB; joined by the closing parallel gateway.</figcaption>
+</figure>
 
 ### 7.4 BPMN — Celery lesson-reminder stream workflow
 
-```
-                              ┌───────────────────────┐
-                              │ Celery beat (1/min)   │
-                              │ schedule:             │
-                              │ scan_upcoming_lessons │
-                              └──────────┬────────────┘
-                                         │ publishes task
-                                         ▼ AMQP
-                              ┌───────────────────────┐
-                              │ RabbitMQ exchange     │
-                              │ (default direct)      │
-                              └──────────┬────────────┘
-                                         │ delivered
-                                         ▼
-                              ┌───────────────────────┐
-                              │ Celery worker         │
-                              │ • read Mongo schedule │
-                              │ • find lessons in 15m │
-                              │ • for each:           │
-                              │     LPUSH Redis       │
-                              │     notifications:{id}│
-                              └──────────┬────────────┘
-                                         │
-                                         ▼
-                              ┌───────────────────────┐
-                              │ Frontend polls        │
-                              │ GET /notifications    │
-                              │ (LPOP up to 50)       │
-                              └───────────────────────┘
-```
+<figure>
+  <img src="images/bpmn_lesson_reminder.png" alt="BPMN diagram of the Celery lesson-reminder stream workflow" class="diagram">
+  <figcaption>Figure 4 — BPMN: Celery beat (scheduler) publishes a task via AMQP → RabbitMQ exchange (messaging) → Celery worker (processing) reads Mongo schedule, LPUSHes notifications into Redis → end user polls <code>GET /notifications</code> from the frontend.</figcaption>
+</figure>
 
 ---
 
