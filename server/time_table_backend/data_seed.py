@@ -5,13 +5,21 @@ The parsed JSON files have no natural primary key, so we derive a stable
   - unchanged docs  -> replaced in place (effectively a no-op)
   - changed docs    -> updated
   - new docs        -> inserted
-  - docs that vanished from the JSON -> deleted (keeps Mongo in sync)
+
+We intentionally do NOT delete docs that are absent from the JSON. The
+Airflow scrape occasionally returns reduced / empty data (network blip,
+IUT site change), and a destructive prune would wipe the live timetable.
+If you really want to wipe and reseed, drop the collection manually.
+
+Empty / unparseable JSON files are skipped with a warning so a bad scrape
+can never erase existing data.
 
 Safe to run repeatedly (e.g. the `mongo-seed` service on every restart).
 """
 import hashlib
 import json
 import os
+import sys
 
 from dotenv import load_dotenv
 from pymongo import MongoClient, ReplaceOne
@@ -33,39 +41,38 @@ def _doc_id(doc: dict) -> str:
 
 
 def seed_collection(path: str) -> None:
-    with open(path, "r") as f:
-        data = json.load(f)
-
     collection_name = os.path.splitext(os.path.basename(path))[0]
     collection = db[collection_name]
 
+    try:
+        with open(path, "r") as f:
+            data = json.load(f)
+    except (OSError, json.JSONDecodeError) as e:
+        print(f"SKIP {collection_name}: cannot read/parse {path}: {e}",
+              file=sys.stderr)
+        return
+
     docs = data if isinstance(data, list) else [data]
+    if not docs:
+        print(f"SKIP {collection_name}: source JSON is empty "
+              "(refusing to touch existing collection)", file=sys.stderr)
+        return
 
     operations = []
-    seen_ids = set()
     for doc in docs:
         doc = {k: v for k, v in doc.items() if k != "_id"}  # ignore stray _id
         doc_id = _doc_id(doc)
-        seen_ids.add(doc_id)
         doc["_id"] = doc_id
         operations.append(ReplaceOne({"_id": doc_id}, doc, upsert=True))
 
-    if operations:
-        result = collection.bulk_write(operations, ordered=False)
-        inserted = result.upserted_count
-        updated = result.modified_count
-        unchanged = len(operations) - inserted - updated
-    else:
-        inserted = updated = unchanged = 0
-
-    # Prune docs that no longer exist in the source JSON
-    deleted = collection.delete_many(
-        {"_id": {"$nin": list(seen_ids)}}
-    ).deleted_count if seen_ids else 0
+    result = collection.bulk_write(operations, ordered=False)
+    inserted = result.upserted_count
+    updated = result.modified_count
+    unchanged = len(operations) - inserted - updated
 
     print(
         f"{collection_name}: inserted={inserted} updated={updated} "
-        f"unchanged={unchanged} deleted={deleted} total={len(operations)}"
+        f"unchanged={unchanged} total={len(operations)}"
     )
 
 
