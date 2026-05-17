@@ -4,17 +4,18 @@ Call `init_telemetry(app)` once at FastAPI startup. Reads the standard
 `OTEL_*` environment variables, so all behavior is controlled from
 docker-compose without code changes.
 
-This wires up:
-  - traces  → OTLP/HTTP exporter to the LGTM collector
-  - metrics → OTLP/HTTP exporter (Prometheus visible inside Grafana)
-  - logs    → OTLP/HTTP exporter (Loki visible inside Grafana)
+Wires up:
+  - traces  -> OTLP/HTTP exporter to the LGTM collector (Tempo)
+  - metrics -> OTLP/HTTP exporter (Prometheus visible inside Grafana)
+  - logs    -> OTLP/HTTP exporter (Loki visible inside Grafana) by
+               attaching a LoggingHandler to the root Python logger so
+               every `logging.info(...)` / `logger.error(...)` flows out
   - auto-instrumentation: FastAPI, SQLAlchemy, PyMongo, Redis, Requests
 """
 from __future__ import annotations
 
 import logging
 import os
-from typing import Optional
 
 from fastapi import FastAPI
 
@@ -25,10 +26,22 @@ def init_telemetry(app: FastAPI, *, sqlalchemy_engine=None) -> None:
 
     try:
         from opentelemetry import trace
+        from opentelemetry._logs import set_logger_provider
+        from opentelemetry.exporter.otlp.proto.http._log_exporter import (
+            OTLPLogExporter,
+        )
+        from opentelemetry.exporter.otlp.proto.http.metric_exporter import (
+            OTLPMetricExporter,
+        )
         from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
             OTLPSpanExporter,
         )
         from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+        from opentelemetry.metrics import set_meter_provider
+        from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
+        from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
+        from opentelemetry.sdk.metrics import MeterProvider
+        from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
         from opentelemetry.sdk.resources import Resource
         from opentelemetry.sdk.trace import TracerProvider
         from opentelemetry.sdk.trace.export import BatchSpanProcessor
@@ -39,9 +52,37 @@ def init_telemetry(app: FastAPI, *, sqlalchemy_engine=None) -> None:
     service_name = os.getenv("OTEL_SERVICE_NAME", "iut-app")
     resource = Resource.create({"service.name": service_name})
 
-    provider = TracerProvider(resource=resource)
-    provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter()))
-    trace.set_tracer_provider(provider)
+    # --- Traces ---
+    trace_provider = TracerProvider(resource=resource)
+    trace_provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter()))
+    trace.set_tracer_provider(trace_provider)
+
+    # --- Metrics ---
+    metric_reader = PeriodicExportingMetricReader(
+        OTLPMetricExporter(), export_interval_millis=15000
+    )
+    meter_provider = MeterProvider(resource=resource, metric_readers=[metric_reader])
+    set_meter_provider(meter_provider)
+
+    # --- Logs (root logger -> OTLP -> Loki via collector) ---
+    log_provider = LoggerProvider(resource=resource)
+    log_provider.add_log_record_processor(BatchLogRecordProcessor(OTLPLogExporter()))
+    set_logger_provider(log_provider)
+
+    otel_handler = LoggingHandler(level=logging.INFO, logger_provider=log_provider)
+    otel_handler.setFormatter(
+        logging.Formatter("%(asctime)s %(name)s %(levelname)s %(message)s")
+    )
+    root = logging.getLogger()
+    root.addHandler(otel_handler)
+    if root.level > logging.INFO or root.level == logging.NOTSET:
+        root.setLevel(logging.INFO)
+    # uvicorn's own loggers don't propagate to root by default
+    for name in ("uvicorn", "uvicorn.access", "uvicorn.error", "fastapi"):
+        lg = logging.getLogger(name)
+        lg.setLevel(logging.INFO)
+        lg.addHandler(otel_handler)
+        lg.propagate = True
 
     FastAPIInstrumentor.instrument_app(app)
 

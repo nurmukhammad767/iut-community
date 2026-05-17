@@ -88,6 +88,7 @@ x-backend-common: &backend-common
     - ./auth/main.py:/app/main.py
     - ./auth/jwt.py:/app/jwt.py
     - ./auth/schemas.py:/app/schemas.py
+    - ./auth/telemetry.py:/app/telemetry.py
     - ./auth/routers:/app/routers
     - ./auth/ws:/app/ws
     - ./auth/graphql_api:/app/graphql_api
@@ -184,6 +185,13 @@ services:
       OTEL_TRACES_EXPORTER: otlp
       OTEL_METRICS_EXPORTER: otlp
       OTEL_LOGS_EXPORTER: otlp
+    volumes:
+      - ./time_table_backend/main.py:/app/main.py
+      - ./time_table_backend/telemetry.py:/app/telemetry.py
+      - ./time_table_backend/tasks.py:/app/tasks.py
+      - ./time_table_backend/celery_app.py:/app/celery_app.py
+      - ./time_table_backend/period_times.py:/app/period_times.py
+      - ./time_table_backend/data_seed.py:/app/data_seed.py
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request,sys;sys.exit(0 if urllib.request.urlopen('http://localhost:8001/healthz').status==200 else 1)"]
       interval: 15s
