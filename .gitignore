@@ -1,0 +1,55 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+env/
+.python-version
+*.egg-info/
+.pytest_cache/
+
+# --- Node / frontend ---
+node_modules/
+dist/
+build/
+.next/
+.cache/
+coverage/
+.vite/
+.parcel-cache/
+
+# --- JVM / native build outputs ---
+target/
+out/
+
+# --- Logs ---
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Env / secrets ---
+.env
+.env.local
+.env.*.local
+*.pem
+
+# --- Editor / OS / AI assistants ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.claude/
+.cursor/
+.DS_Store
+Thumbs.db
+
+# --- Airflow runtime ---
+server/timetable_web_scraping/logs/
+server/timetable_web_scraping/parsed_data/
+
+# --- Submission artefacts (built locally, not tracked) ---
+submission/
+*.zip
