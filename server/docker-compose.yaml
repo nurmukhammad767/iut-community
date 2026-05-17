@@ -94,6 +94,8 @@ x-backend-common: &backend-common
     - ./auth/rate_limiter:/app/rate_limiter
     - ./alembic.ini:/app/alembic.ini
     - ./db:/app/db
+    - ./db_config.py:/app/db_config.py
+    - ./models.py:/app/models.py
     - ./timetable_web_scraping/parsed_data:/app/parsed_data
   healthcheck:
     test: ["CMD", "python", "-c", "import urllib.request,sys;sys.exit(0 if urllib.request.urlopen('http://localhost:8000/healthz').status==200 else 1)"]
