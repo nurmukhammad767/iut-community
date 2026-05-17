@@ -1,7 +1,7 @@
-Team Phoenix — IUT Community
+Team Phoenix - IUT Community
 "Students should have no friction in studies!"
 
-Database Application and Design — Spring 2026 Group Project
+Database Application and Design - Spring 2026 Group Project
 Submission date: 2026-05-17
 Instructor: Dr. Sarvar Abdullaev (s.abdullaev@inha.uz)
 
@@ -26,20 +26,20 @@ Final git tag                        : v1.0
 TEAM ROSTER
 ================================================================
 TEAM LEADER (submits on eclass):
-  Kamoliddin Sharopov     — U2310245 — Team Lead / DevOps
+  Kamoliddin Sharopov     - U2310245 - Team Lead / DevOps
                              (Docker Compose, Nginx gateway, Observability stack)
 
 MEMBERS:
-  Sardorbek Suyunov       — U2310262 — Database Architect
+  Sardorbek Suyunov       - U2310262 - Database Architect
                              (ER diagram, relational schema, Alembic migrations,
                               seed data, report oversight)
-  Nurmukhammad Shomahmudov— U2310249 — Backend Developer
+  Nurmukhammad Shomahmudov - U2310249 - Backend Developer
                              (FastAPI REST routers, JWT auth, Postgres queries)
-  Farrukh Sattorov        — U2310237 — Backend Developer
+  Farrukh Sattorov        - U2310237 - Backend Developer
                              (WebSocket chat, RabbitMQ/Celery pipeline,
                               token-bucket rate limiter)
-  Bekhruz To'ymurodov     — U2310268 — Frontend Developer
+  Bekhruz To'ymurodov     - U2310268 - Frontend Developer
                              (React + Vite + shadcn/ui, API integration)
-  Bobur Rustamov          — U2310221 — Documentation Lead
+  Bobur Rustamov          - U2310221 - Documentation Lead
                              (README, CHANGELOG, BPMN/architecture diagrams,
                               design report drafting)

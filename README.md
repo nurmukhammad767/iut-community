@@ -100,7 +100,7 @@ Demo accounts (password is `Password123!` for everyone):
 
 ---
 
-## Requirement Map (R1–R13)
+## Requirement Map (R1-R13)
 
 | R   | Coverage                                    | Where                                        |
 |-----|---------------------------------------------|----------------------------------------------|
@@ -145,10 +145,10 @@ Demo accounts (password is `Password123!` for everyone):
 ## Endpoints
 
 ### REST (auth-protected unless noted)
-- `POST /register` — public
-- `POST /login` — public, returns `{access_token, token_type}`
-- `GET  /me` — current user
-- `GET  /healthz` — public
+- `POST /register` - public
+- `POST /login` - public, returns `{access_token, token_type}`
+- `GET  /me` - current user
+- `GET  /healthz` - public
 - `GET  /clubs`, `GET /clubs/{id}`, `POST /clubs/{id}/join`, `DELETE /clubs/{id}/leave`, `GET /clubs/{id}/members`
 - `GET  /clubs/{id}/posts`, `POST /clubs/{id}/posts` ← rate-limited (5 burst, 0.2 tok/s)
 - `POST /bookings`, `GET /bookings`, `DELETE /bookings/{id}`
@@ -157,10 +157,10 @@ Demo accounts (password is `Password123!` for everyone):
 - `GET  /timetable/available_rooms`, `GET /timetable/occupied_rooms`
 
 ### GraphQL
-- `POST /graphql` — single `dashboard(student_id)` query collapsing 4+ REST calls.
+- `POST /graphql` - single `dashboard(student_id)` query collapsing 4+ REST calls.
 
 ### WebSocket
-- `WS /ws/chat/{club_id}?token=<jwt>` — receive `{type: backlog | message, …}` frames.
+- `WS /ws/chat/{club_id}?token=<jwt>` - receive `{type: backlog | message, …}` frames.
 
 ---
 

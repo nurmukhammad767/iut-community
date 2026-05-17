@@ -143,7 +143,7 @@ h1:first-of-type + h3 {
     border: 0;
 }
 
-/* Diagram images — centered, fit-width, keep on one page */
+/* Diagram images - centered, fit-width, keep on one page */
 figure {
     margin: 0.6em 0 0.4em 0;
     text-align: center;
@@ -226,7 +226,7 @@ def main() -> int:
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>IUT Community — Design Report</title>
+<title>IUT Community - Design Report</title>
 <style>{CSS}</style>
 </head>
 <body>
