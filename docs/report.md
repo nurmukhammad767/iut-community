@@ -667,6 +667,44 @@ Live Grafana dashboards are reachable from
 logs / metrics correlation above can be reproduced live from a single
 `POST /graphql` request against the deployed URL.
 
+### 10.3 Live evidence from the deployed stack
+
+The six screenshots below are captured from the running Grafana instance
+on the production droplet (`46.101.98.64:3000`), inside the **Explore →
+Logs (Loki)** view. They show that both FastAPI services are actually
+streaming OTel logs through OTLP/HTTP into Loki, with all the OTel
+resource attributes preserved as queryable fields.
+
+<figure>
+  <img class="screenshot" src="images/logs_auth_1.png" alt="Loki logs for iut-auth service">
+  <figcaption>Figure 6 - Loki Explore filtered by <code>service_name = iut-auth</code>. The log-volume sparkline (top) shows a sustained stream of structured access log lines from the auth service; the bottom panel lists the raw log records (32 in the last 15 minutes) emitted by the FastAPI OTel <code>LoggerProvider</code>.</figcaption>
+</figure>
+
+<figure>
+  <img class="screenshot" src="images/logs_auth_2.png" alt="Loki labels for iut-auth service">
+  <figcaption>Figure 7 - Same query, <strong>Labels</strong> tab. Two indexed labels are exposed by the OTel resource: <code>detected_level = info</code> and <code>service_name = iut-auth</code>. The per-label histograms confirm the auth service is logging continuously at INFO level over the selected window.</figcaption>
+</figure>
+
+<figure>
+  <img class="screenshot" src="images/logs_auth_3.png" alt="Loki fields extracted for iut-auth service">
+  <figcaption>Figure 8 - <strong>Fields</strong> tab for the same query. Loki has automatically extracted 14 OTel attributes from each log line, including <code>trace_id</code> and <code>span_id</code> (which is what enables the Tempo &harr; Loki drill-down described in &sect;10.2), plus source-code context (<code>code_filepath</code>, <code>code_function</code>, <code>code_lineno</code>) and SDK metadata (<code>telemetry_sdk_version</code>).</figcaption>
+</figure>
+
+<figure>
+  <img class="screenshot" src="images/logs_timetable_1.png" alt="Loki logs for iut-timetable service">
+  <figcaption>Figure 9 - The same Explore view filtered by <code>service_name = iut-timetable</code>. The timetable FastAPI service (the second backend, exposing schedule queries and Celery-triggered reminders) is independently shipping its own log stream into the same Loki instance, demonstrating that the multi-service OTel pipeline is wired correctly.</figcaption>
+</figure>
+
+<figure>
+  <img class="screenshot" src="images/logs_timetable_2.png" alt="Loki labels for iut-timetable service">
+  <figcaption>Figure 10 - <strong>Labels</strong> tab for <code>iut-timetable</code>. 21 log lines in the 15-minute window, again with <code>detected_level = info</code> and <code>service_name = iut-timetable</code> as queryable labels. The fact that both services appear with distinct <code>service_name</code> values proves the resource attribute set in <code>telemetry.py</code> is propagating end-to-end.</figcaption>
+</figure>
+
+<figure>
+  <img class="screenshot" src="images/logs_timetable_3.png" alt="Loki fields extracted for iut-timetable service">
+  <figcaption>Figure 11 - <strong>Fields</strong> tab for the timetable service. Same 14 OTel attributes are extracted, including <code>severity_number</code> / <code>severity_text</code> (so we can build LogQL queries like <code>{service_name="iut-timetable"} | severity_text="ERROR"</code> for alerting), and <code>trace_id</code> linking each log line back to its originating Tempo span.</figcaption>
+</figure>
+
 ---
 
 ## 11. Testing and Known Limitations

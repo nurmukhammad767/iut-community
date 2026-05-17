@@ -174,6 +174,16 @@ img.diagram {
     border: 1px solid #d8e0ec;
     border-radius: 4px;
 }
+
+img.screenshot {
+    max-width: 90%;
+    max-height: 6.5cm;
+    object-fit: contain;
+    display: block;
+    margin: 0.25em auto;
+    border: 1px solid #d8e0ec;
+    border-radius: 3px;
+}
 """
 
 
